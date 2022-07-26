@@ -1,0 +1,260 @@
+#+title: Project Web Novel
+
+* Goals
++ Transparent, Ethical
++ Author-focused features and controls
++ Free-to-use first
++ Monetization geared exclusively towards artist support
++ Feedback encouraged and facilitated by application
++ Reader discoverability for new, trending, and popular works
++ Personal reading lists
+* Non-goals
++ In-site currency
++ Non-site-member advertisements/monetization
++ Paywalled books
++ Machine translation
++ Hosting unofficial works
+* Hard Problems
++ How to upload from Google Docs, Word, etc.
+* Monetization
++ Author Sponsorships, by readers
+  + Access all of the advanced chapters for all of their works
+  + Authors determine their own subscription price (should be a minimum (probably $2-5/mo))
+  + WebNovel takes 50% of subscription (yikes)
++ Author advertisements for their own works
+  + cover art, tags, promotional banners, hook lines
+  + Can target their own subgenres
+* Features
+** Minimum Viable (1.0)
++ Users create profiles
+  + Gain access to Author Dashboard if work is created
+  + Get Reading List for free
++ Authors upload works
+  + Subject to admin review (at first)
+  + 500-word minimum
++ Genres and tags
+  + Can be added to works
+  + Most popular genres appear on homepage
+  + Users can search, filter, blacklist tags
++ Readers can leave private/public ratings and private/public reviews on works
++ Authors can collaborate on works
++ 18+ content guards
++ Chapter page hits (with registered users and anonymous)
+
+*** As a Guest, I can...
++ Read any non-early-access chapter of any work
++ View followers of any work
++ Read public reviews and ratings of works
++ Visit genre pages
++ Search works based on genres, tags, and keywords
++ Create a User account
++ View registered users' Reading Lists
++ View author profiles
++ View sponsorship tiers for authors
++ Explicitly choose to view 18+ works, which are hidden by default
+
+*** As a Reader, I can...
++ Access all features of Guest
++ CRUD on your own personal Reading List
++ Automatically track progress on works in Reading List
++ Follow authors and/or books to get updates
++ Receive notifications about updated works
++ Create ratings scored from 1-10
++ Submit private ratings and reviews on your own List
++ Submit public ratings and reviews on any Work's page
++ Purchase sponshorships for any author at any tier
++ Submit a work to become an Author
++ Comment on works
++ Receive notifications on replies to comments
++ Manage notification settings
++ Submit a bug report or feature request
++ Flag or report works and comments that violate Community Guidelines
+
+*** As an Author, I can...
++ Access all features of Reader
++ Moderate (read/delete) my own comment section
++ Block users from commenting on my work
++ Access Author Analytics, where I can...
+  + Show how many people have read each chapter
+  + See where registered users have stopped reading
+  + View distribution of work rankings (bar chart)
++ Manipulate on my own works, where I can...
+  + Submit a work for approval, upon which it will be made public
+  + Schedule an arbitrary amount of chapters for release
+  + Apply multiple genres and more tags to my work
+  + Distinguish my work between an original or fanfiction
+  + Submit a request to an Administrator to remove a work
+  + Tag a work as "In-Progress", "On Hiatus", or "Complete"
+  + Disable public reviews/ratings on a given work
+    + Be notified that this will disable popularity ranking features
+  + Set schedule for early access of chapters
+  + Add collaborators to a work
+  + Remove or archive a chapter from a work
++ Create and update a Sponsorship plan, where I can...
+  + Set recurring minimum monthly price for sponsorship (>$5)
++ Create and pay for on-site advertisements of my on-site work
+  + Provide book cover, promo copy
+  + Select target genre or home page for advertisements
+  + See a price up-front for each of these
++ Receive a notification for all comments on my work
+
+*** As an Administrator, I can...
++ Access all features of Author
++ Set prices for on-site advertisements
++ Approve works for public viewing
++ All CRUD (delete OR archive) operations on all Works
++ Ban users and archive accounts
++ Send arbitrary notifications to users
++ Manage and queue advertisements
++ Spotlight works and reviews on front/genre pages
+
+** Feature Bump (1.1)
++ Poetry support
++ Achievement system
++ Username/profile profanity filter
++ Status table generator
++ Scores for individual chapters
++ Consult an Intellectual Property Lawyer for ToS
+** Version Bump (2.0)
++ Forums
++ Contests (like Zines)
++ Blog as book reviewers
++ Review spotlight/featured
++ Official translation support structure
+* Architecture
+** Data Design
++ Guest
++ Account
+  + Reading List
+    + Reading List Item
++ Work
+  + Analytics
++ Chapter
+  + Comment
++ Genre
++ Tag
++ Warning
++ Advertisable Space
++ Advertisement
++ Sponsorship
++ Notification
++ Report (of a comment or work)
+
+*** Pseudocode ed.
+#+begin_src clojure
+;; Account
+{:privilege [:reader :author? :admin?]
+ :reading-list {}
+ :username ""}
+
+;; Item in Reading List (1-1 with Account)
+{:completion-status [:planned :in-progress :on-hold :complete :dropped]
+ :progress? (range chapter-count)
+ :work-id id
+ :note ""
+ :start-date #inst ""
+ :last-read #inst ""
+ :visibility [:private? :public?]
+ :body? ""
+ :score? (range 1 10)
+ :detailed-scores? {}}
+
+;; Work
+;; Limit private works to 3 per acct id to prevent abuse
+{:title ""
+ :owner account-id
+ :visibility [:public :private :restricted]
+ :contributors? [account-id*] ;; can edit or add chapters, but not delete
+ :blurb? ""
+ :warnings? []
+ :genres? []
+ :tags? []
+ :chapters? {chapter-id index} ;; will practically have at least one chapter
+ :cover? ""
+ :original? true
+ :hits? num}
+
+;; Chapter
+{:title ""
+ :content ""
+ :authors [account-id*]
+ :pre-content? "" ;; or maps with polls?
+ :post-content? "" ;; or maps with polls?
+ :comments? comment-map
+ :hits? num
+ :early-access? false}
+
+;; Comment (belongs to a Chapter)
+{:author account-id ;; also can be deleted, but keeps nested comments
+ :content ""
+ :posted #inst ""
+ :updated? #inst ""
+ :replies? [comment-map*]
+ :locked? false}
+
+;; Genre
+{:name}
+
+;; Tag
+{:name}
+
+;; Warning
+{:name
+ :content}
+
+;; Advertisable Space
+{:price-per-day num
+ :target [genre-id :home]
+ :queued [advertisement-id*]}
+
+;; Advertisement
+;; You don't pay to create the advertisement obj,
+;; you pay to add it to the Advertisable Space queue.
+{:work
+ :advertisable-space [adv-space-id?]
+ :banner? img ;; if nil, display cover
+ :copy? "" ;; if nil, display work blurb}
+ :days-duration}
+
+;; Sponsorship
+{:author-id account-id
+ :minimum dollar-amt
+ :sponsors {user-id amount-sponsoring
+            user-id amount-sponsoring}}
+
+;; Notification
+{:account account-id
+ :body body
+ :timestamp #inst ""
+ :link link}
+
+;; Report
+{:reported-content-type [:comment :work]
+ :id reported-id
+ :user account-id
+ :body ""
+ :timestamp #inst ""}
+#+end_src
+** System Architecture
+*** Frontend
++ what the "user sees"
++ Gets a copy of ~s~ from the backend.
+  + Must monitor changes to ~s~ from the backend,
+  + As well as submit changes to ~s~ to the backend.
++ Performs ~v = f(s)~, which is a pseudo-mathematical description of how the MVC pattern works.
+  + Model AKA ~s~: the entirely unique source of truth from which all mutable forms of the application are derived.
+  + Controller AKA ~f~: instructions how to translate the contents of the Model, combine it with immutable data, in order to prepare for user display and interaction.
+  + View AKA ~v~: a variable that depends on ~f~ and ~s~ to determine its own value. A "View", however, is a set of constants (typically describing a GUI) that can be fed prepared data in order to create the current state of the GUI.
++ All data fetching and derivation is a ~sub~.
++ All data submission and manipulation is an ~evt~.
+
+Basically, you want to isolate each of the pieces of MVC. In a perfect world, the Model has 100% of your state, but in practice, the Model will have 90-95% and the View will contain the remaining 5-10% in order to remain performant with user input. However, *all state must flow /through/ the Controller*, no skipping steps!
+
+*** Backend
+*** Views
+*** Controllers
+*** Models
+
+* Notes
+** Review System
+If you leave a review that /will/ impact the author's work's score, you must make it public. However, you can also have private reviews and rating on your personal Reading List.
