@@ -145,7 +145,8 @@
 ;; Account
 {:privilege [:reader :author? :admin?]
  :reading-list {}
- :username ""}
+ :username ""
+ :reader-preferences {}}
 
 ;; Item in Reading List (1-1 with Account)
 {:completion-status [:planned :in-progress :on-hold :complete :dropped]
@@ -258,3 +259,47 @@ Basically, you want to isolate each of the pieces of MVC. In a perfect world, th
 * Notes
 ** Review System
 If you leave a review that /will/ impact the author's work's score, you must make it public. However, you can also have private reviews and rating on your personal Reading List.
+
+* Screens
++ [ ] Chapter
++ [ ] Work
++ [ ] Author Profile
++ [ ] Reading List
++ [ ] Home
++ [ ] Genre
++ [ ] Preferences
++ [ ] Author Dashboard
++ [ ] Edit Work
++ [ ] New Chapter
++ [ ] Advertisement Dashboard
++ [ ] Edit Advertisement
++ [ ] Sponsor Dashboard (for Readers)
+
+* Roadmap
+Aim to ship MVP before 07 December 2022.
+
+So, 15 weeks, give or take for midterms and finals.
+** Week 1
+Davis: Lipsum generator
+Kyle & Logan: Mockups for web client
+
+** Week 2
+Davis: Stories for Chapter page
+Kyle & Logan: Backend routes and auth
+
+** Week 3
+Davis: Stories for Author Profile page
+Kyle & Logan: Reader-side logic
+
+** Week 4
+Davis: Stories for Reading List page
+Kyle & Logan: Author-side logic
+
+** Week 5
+Davis: Stories for Home and Genres pages
+Kyle & Logan: Admin-side logic and Persistence (database)
+
+** Week 6
+Chapter Page events and subs
+
+** Week 7
