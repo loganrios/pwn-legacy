@@ -1,0 +1,83 @@
+#+title: Screens and Components
+
+* Screens
++ [ ] Chapter
++ [ ] Work
++ [ ] Author Profile
+  + [ ] Author profile picture
+  + [ ] Author Bio
+  + [ ] Follow Button
+  + [ ] Subscribe Button
+  + [ ] Social and Reading List
+  + [ ] Author display name
+  + [ ] Author stats
+    + [ ] total word count
+    + [ ] total reviews received
+    + [ ] total ratings received
+  + [ ] Works list
+  + [ ] follower count
+  + [ ] sponsor count
+  + [ ] sorted sponsor list (infinite)
++ [ ] Reading List
+  + [ ] Display Name
+  + [ ] Works by Status Table
+    + [ ] work title
+    + [ ] reader rating
+    + [ ] progress
+    + [ ] note (100 characters)
+    + [ ] start date
+    + [ ] last read
+    + [ ] visibility
+    + [ ] collapsable review
+  + [ ] favorites list
+  + [ ] following list
+  + [ ] sponsoring list
++ [ ] Home
+  + [ ] Announcements
+  + [ ] Now On PWN
+  + [ ] Trending Works
+  + [ ] Featured Reviews
++ [ ] Genre
+  + [ ] Now on PWN
+  + [ ] Collapsable filter with tags
+  + [ ] Sorted List of Works
+    + [ ] Featured: our homebrew mix of ratings, views, follows, updates, newness, and whatever we feel like promoting
+    + [ ] Top Rated
+    + [ ] Most Followed
+    + [ ] Recently Updated
+    + [ ] New Works
+  + [ ]
++ [ ] Preferences
+  + [ ] tag blacklist
+  + [ ] 18+ mode
++ [ ] Author Dashboard
++ [ ] Edit Work
++ [ ] New Chapter
++ [ ] Advertisement Dashboard
++ [ ] Edit Advertisement
++ [ ] Sponsor Dashboard (for Readers)
+
+* Tagging system
+Genres are noted by ~#_genre~. Authors can pick two for each work. Mix with: <other-genre>.
+
+#+begin_src
+/genre/action
+/genre/adventure
+/genre/comedy
+/genre/contemporary
+/genre/drama
+/genre/fantasy
+/genre/historical
+/genre/horror
+/genre/mystery
+/genre/psychological
+/genre/romance
+/genre/satire
+/genre/scifi
+/genre/tragedy
+/genre/nonfiction
+/genre/fanfiction
+#+end_src
+
+Tags:
+All lower-case, words separated by dashes. You can add up to 20 tags.

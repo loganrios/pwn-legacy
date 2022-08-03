@@ -145,6 +145,8 @@
 ;; Account
 {:privilege [:reader :author? :admin?]
  :reading-list {}
+ :follows []
+ :sponsors []
  :username ""
  :reader-preferences {}}
 
@@ -153,6 +155,7 @@
  :progress? (range chapter-count)
  :work-id id
  :note ""
+ :clout [:user-ids]
  :start-date #inst ""
  :last-read #inst ""
  :visibility [:private? :public?]
@@ -251,6 +254,13 @@
 
 Basically, you want to isolate each of the pieces of MVC. In a perfect world, the Model has 100% of your state, but in practice, the Model will have 90-95% and the View will contain the remaining 5-10% in order to remain performant with user input. However, *all state must flow /through/ the Controller*, no skipping steps!
 
+Tools for the frontend:
++ [X] React
++ [X] Shadow
++ [X] Reagent
++ [X] Material UI
++ [ ] Storybook
+
 *** Backend
 *** Views
 *** Controllers
@@ -259,21 +269,6 @@ Basically, you want to isolate each of the pieces of MVC. In a perfect world, th
 * Notes
 ** Review System
 If you leave a review that /will/ impact the author's work's score, you must make it public. However, you can also have private reviews and rating on your personal Reading List.
-
-* Screens
-+ [ ] Chapter
-+ [ ] Work
-+ [ ] Author Profile
-+ [ ] Reading List
-+ [ ] Home
-+ [ ] Genre
-+ [ ] Preferences
-+ [ ] Author Dashboard
-+ [ ] Edit Work
-+ [ ] New Chapter
-+ [ ] Advertisement Dashboard
-+ [ ] Edit Advertisement
-+ [ ] Sponsor Dashboard (for Readers)
 
 * Roadmap
 Aim to ship MVP before 07 December 2022.
