@@ -20,5 +20,5 @@ Visible.args = {
 export const NotVisible = Template.bind({});
 NotVisible.args = {
   text: "This is header text",
-  isVisible: "hidden",
+  isVisible: false,
 };

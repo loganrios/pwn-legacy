@@ -2,8 +2,8 @@ import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
 
 const ChapterNote = ({ text, isVisible }) => {
-  // const [visible, setVisible] = React.useState(isVisible);
   return (
+    isVisible ?
     <Box
       sx={{
         width: "100%",
@@ -20,6 +20,8 @@ const ChapterNote = ({ text, isVisible }) => {
         {text}
       </Typography>
     </Box>
+    :
+    null
   );
 };
 
