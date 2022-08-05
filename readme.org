@@ -52,6 +52,7 @@
 + View author profiles
 + View sponsorship tiers for authors
 + Explicitly choose to view 18+ works, which are hidden by default
++ View comments
 
 *** As a Reader, I can...
 + Access all features of Guest
@@ -175,7 +176,7 @@
  :tags? []
  :chapters? {chapter-id index} ;; will practically have at least one chapter
  :cover? ""
- :original? true
+ ;; :original? true
  :hits? num}
 
 ;; Chapter
