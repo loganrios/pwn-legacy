@@ -1,28 +1,30 @@
 import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
 const ChapterNote = ({ text, isVisible }) => {
-  return (
-    isVisible ?
+  return isVisible ? (
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "left",
+        typography: "h6",
+        mx: "auto",
+        width: "75%",
+        height: "75%",
         backgroundColor: "background.paper",
         boxShadow: 2,
         borderRadius: 3,
-        p: 1,
         visibility: { isVisible },
       }}
     >
-      {/* look into gutterBottom */}
-      <Typography variant="body1" gutterBottom>
-        {text}
-      </Typography>
+      <Box sx={{ ml: 3 }}>
+        <AutoStoriesIcon />
+      </Box>
+      <Box sx={{ mx: "auto" }}>{text}</Box>
     </Box>
-    :
-    null
-  );
+  ) : null;
 };
 
 export default ChapterNote;
