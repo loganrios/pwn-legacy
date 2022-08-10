@@ -17,3 +17,7 @@
 
 (defn start []
   (http/start (create-server)))
+
+(comment
+  (start)
+  nil)
