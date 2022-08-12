@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Typography, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
 const ChapterNote = ({ text, isVisible }) => {
@@ -9,7 +9,7 @@ const ChapterNote = ({ text, isVisible }) => {
         display: "flex",
         flexDirection: "row",
         justifyContent: "left",
-        typography: "h6",
+        typography: "p",
         mx: "auto",
         width: "75%",
         height: "75%",
@@ -19,7 +19,7 @@ const ChapterNote = ({ text, isVisible }) => {
         visibility: { isVisible },
       }}
     >
-      <Box sx={{ ml: 3 }}>
+      <Box sx={{ m: 1 }}>
         <AutoStoriesIcon />
       </Box>
       <Box sx={{ mx: "auto" }}>{text}</Box>

@@ -4,16 +4,13 @@ import ChapterNote from "./ChapterNote";
 export default {
   title: "ChapterNote",
   component: ChapterNote,
-  argTypes: {
-    onNext: { action: "The Next is the Best" },
-  },
 };
 
 const Template = (args) => <ChapterNote {...args} />;
 
 export const Visible = Template.bind({});
 Visible.args = {
-  text: "This is header text",
+  text: "This is header text. These are lots of other words to test if this component is working properly.",
   isVisible: true,
 };
 

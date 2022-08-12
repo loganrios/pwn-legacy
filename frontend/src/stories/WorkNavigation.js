@@ -2,53 +2,41 @@ import React from "react";
 import {
   Button,
   Switch,
-  Select,
-  NativeSelect,
-  FormControl,
   FormGroup,
   FormControlLabel,
-  InputLabel,
   Box,
   TextField,
 } from "@mui/material";
 
-// Old TrackingToggle switch code. Replaced with FormControlLabel version to add proper label.
-//
-// const TrackingToggle = ({ onToggleTrack, isTracked, canToggleTrack }) => {
-//   return canToggleTrack ? (
-//     <Switch checked={isTracked} onChange={onToggleTrack} />
-//   ) : (
-//     <Switch checked={false} disabled={true} />
-//   );
-// };
+
+const ToggleLabel = ({ onChange, checked, disabled }) => {
+  return (
+    <FormControlLabel
+    control={<Switch checked={checked} onChange={onChange} disabled={disabled} />}
+    label="Track Progress"
+    labelPlacement="start"
+    sx={{ mx: "auto" }}
+  />
+  );
+};
 
 const TrackingToggleLabel = ({ onToggleTrack, isTracked, canToggleTrack }) => {
   return canToggleTrack ? (
-    <FormControlLabel
-      control={<Switch checked={isTracked} onChange={onToggleTrack} />}
-      label="Track Progress"
-      labelPlacement="start"
-      sx={{ mx: "auto" }}
-    />
+    <ToggleLabel onChange={onToggleTrack} checked={isTracked} disabled={false} />
   ) : (
-    <FormControlLabel
-      disabled
-      control={<Switch checked={false} disabled={true} />}
-      label="Track Progress"
-      labelPlacement="start"
-      sx={{ mx: "auto" }}
-    />
+    <ToggleLabel onChange={null} checked={false} disabled={true} />
   );
 };
 
 const WorkNavigation = ({
   onNext,
   onPrev,
+  onChapterSelect,
   isTracked,
   onToggleTrack,
   canToggleTrack,
   currentChapter,
-  chapterNumber,
+  chapters,
 }) => {
   return (
     <Box
@@ -65,43 +53,26 @@ const WorkNavigation = ({
       }}
     >
       <Button sx={{ ml: 2 }} variant="contained" onClick={onPrev}>
-        Previous
+        Prev
       </Button>
-      {/* <FormControl fullWidth> */}
-      {/*   <InputLabel variant="standard" htmlFor="uncontrolled-native"> */}
-      {/*     Chapter */}
-      {/*   </InputLabel> */}
-      {/*   <NativeSelect */}
-      {/*     defaultValue={currentChapter} */}
-      {/*     inputProps={{ */}
-      {/*       name: "chapter", */}
-      {/*       id: "uncontrolled-native", */}
-      {/*     }} */}
-      {/*   > */}
-      {/*     <option value={10}>Ten</option> */}
-      {/*     <option value={20}>Twenty</option> */}
-      {/*     <option value={30}>Thirty</option> */}
-      {/*   </NativeSelect> */}
-      {/* </FormControl> */}
       <TextField
         id="chapter-selection"
         select
         label="Chapter"
+        defaultValue={currentChapter}
+        onChange={onChapterSelect}
         SelectProps={{
           native: true,
-        }}
-        defaultValue={currentChapter}
-        inputProps={{
-          name: "chapter",
-          id: "uncontrolled-narrative",
         }}
         sx={{ mx: "auto", width: "55%" }}
         variant="standard"
         margin="dense"
       >
-        <option value={10}>Ten</option>
-        <option value={20}>Twenty</option>
-        <option value={30}>Thirty</option>
+        {chapters.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
       </TextField>
       <FormGroup>
         <TrackingToggleLabel
