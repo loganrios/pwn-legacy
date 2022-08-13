@@ -31,7 +31,6 @@
   (map->Database {:dir dir}))
 
 ;; TODO move to system.clj
-
 (defn example-system [config-options]
   (let [{:keys [db-dir]} config-options]
     (component/system-map
@@ -45,8 +44,31 @@
 (defn stop-dev []
   (alter-var-root #'system component/stop))
 
-;;end TODO
+;; end TODO
 
+;;node
+(def node (get-in system [:db :db]))
+
+;;spec
+(s/def :work/title string?)
+(s/def :work/owner string?)
+(s/def :work/visibility #{:public :private :restricted})
+(s/def :work/contributors (s/coll-of uuid? :distinct true :into [])) ;; can edit or add chapters, but not delete
+(s/def :work/blurb string?)
+(s/def :work/warnings (s/coll-of string? :distinct true :into []))
+(s/def :work/genres (s/coll-of string? :min-count 0 :max-count 2  :distinct true :into []))
+(s/def :work/tags (s/coll-of string? :min-count 0 :max-count 20 :distinct true :into []))
+(s/def :work/chapters (s/map-of int? uuid? :distinct true :into {})) ;; will practically have at least one chapter
+(s/def :work/cover string?)
+(s/def :work/hits int?)
+
+(s/def :xt/id int?)
+(s/def :data/type keyword?)
+(s/def :work/work (s/keys :req [:xt/id :data/type :work/title :work/owner :work/visibility]
+                          :opt [:work/contributors :work/blurb :work/warnings :work/genres
+                                :work/tags :work/chapters :work/cover :work/hits]))
+
+;;xtdb
 (defn full-query
   [node]
   (xt/q
@@ -57,91 +79,87 @@
 (defn remove-from-node [node eid]
   (xt/submit-tx node [[::xt/evict eid]]))
 
-(defn create-user [username]
-  (let [uuid (random-uuid)]
-    (xt/submit-tx node
-                  [[::xt/put
-                    {:xt/id uuid
-                     :data-type :user
-                     :user/privilege []
-                     :user/reading-list {}
-                     :user/follows []
-                     :user/sponsors []
-                     :user/username username
-                     :user/reader-preferences {}}]])
-    uuid))
+(defn new-work
+  [work-info]
+  {:pre [(s/valid? :work/work work-info)]
+   :post [s/valid? string? %]}
+  (xt/submit-tx node [[::xt/put
+                       work-info]]))
 
-(defn filter-name
-  [name]
-  (xt/q (xt/db node)
-        '{:find [uuid]
-          :where [[e :xt/id uuid]
-                  [e :user/username name]]
-          :in [name]}
-        name))
+;; (defn create-user [username]
+;;   (let [uuid (random-uuid)]
+;;     (xt/submit-tx node
+;;                   [[::xt/put
+;;                     {:xt/id uuid
+;;                      :data-type :user
+;;                      :user/privilege []
+;;                      :user/reading-list {}
+;;                      :user/follows []
+;;                      :user/sponsors []
+;;                      :user/username username
+;;                      :user/reader-preferences {}}]])
+;;     uuid))
 
-(defn name->uuid [name] (ffirst (filter-name name)))
+;; (defn filter-name
+;;   [name]
+;;   (xt/q (xt/db node)
+;;         '{:find [uuid]
+;;           :where [[e :xt/id uuid]
+;;                   [e :user/username name]]
+;;           :in [name]}
+;;         name))
 
-(defn remove-user [name]
-  (remove-from-node node (name->uuid name)))
+;; (defn name->uuid [name] (ffirst (filter-name name)))
+
+;; (defn remove-user [name]
+;;   (remove-from-node node (name->uuid name)))
 
 (comment
 
   (start-dev)
 
-  (def node (get-in system [:db :db]))
 
   (def working-uuid (create-user "Tazspeare"))
   (remove-user "Tazspeare")
 
-  (defn create-work [title username visibility]
-    (let [uuid (random-uuid)]
-    (xt/submit-tx node
-                  [[::xt/put
-                    {:xt/id uuid
-                     :data-type :work
-                     :work/title title
-                     :work/owner (name->uuid username)
-                     :work/visibility [visibility]
-                     :work/contributors? [] ;; can edit or add chapters, but not delete
-                     :work/blurb? ""
-                     :work/warnings? []
-                     :work/genres? []
-                     :work/tags? []
-                     :work/chapters? {} ;; will practically have at least one chapter
-                     :work/cover? ""
-                     :work/hits? 0}]])
-    uuid))
+  (s/conform even? 1000)
+  (new-work {:xt/id 1
+             :data/type :work
+             :work/title "World of Broken Dreams"
+             :work/owner "kjforthman"
+             :work/visibility :public
+             :work/genres ["Romance" "Fantasy"]})
+
 
   (defn create-chapter [title username content]
     (let [uuid (random-uuid)]
-    (xt/submit-tx node
-                  [[::xt/put
-                    {:xt/id uuid
-                     :data-type :chapter
-                     :chapter/title title
-                     :chapter/content content
-                     :chapter/authors [(name->uuid username)]
-                     :chapter/pre-content? "" ;; or maps with polls?
-                     :chapter/post-content? "" ;; or maps with polls?
-                     :chapter/comments? {}
-                     :chapter/hits? 0
-                     :chapter/early-access? false}]])
-    uuid))
+      (xt/submit-tx node
+                    [[::xt/put
+                      {:xt/id uuid
+                       :data-type :chapter
+                       :chapter/title title
+                       :chapter/content content
+                       :chapter/authors [(name->uuid username)]
+                       :chapter/pre-content? "" ;; or maps with polls?
+                       :chapter/post-content? "" ;; or maps with polls?
+                       :chapter/comments? {}
+                       :chapter/hits? 0
+                       :chapter/early-access? false}]])
+      uuid))
 
- (create-work "Black Reflections" "Tazspeare" :public)
+  (create-work "Black Reflections" "Tazspeare" :public)
 
- (create-chapter "Chapter 1" "Tazspeare" "Leif is the Max-Man")
+  (create-chapter "Chapter 1" "Tazspeare" "Leif is the Max-Man")
 
- (defn get-work-id-for-user
-   [username]
-   (xt/q (xt/db node)
-        '{:find [uuid]
-          :where [[e :work/owner username]
-                  [e :work/title title]
-                  [e :xt/id uuid]]
-          :in [username]}
-        (name->uuid username)))
+  (defn get-work-id-for-user
+    [username]
+    (xt/q (xt/db node)
+          '{:find [uuid]
+            :where [[e :work/owner username]
+                    [e :work/title title]
+                    [e :xt/id uuid]]
+            :in [username]}
+          (name->uuid username)))
 
   (get-work-id-for-user "Tazspeare")
 
