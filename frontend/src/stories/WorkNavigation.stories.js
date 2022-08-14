@@ -1,15 +1,15 @@
-import React from 'react'
-import WorkNavigation from './WorkNavigation';
+import React from "react";
+import WorkNavigation from "./WorkNavigation";
 
 export default {
-  title: 'WorkNavigation',
+  title: "WorkNavigation",
   component: WorkNavigation,
   argTypes: {
     onNext: { action: "The Next is the Best" },
     onPrev: { action: "Don't dwell on the past" },
     onChapterSelect: { action: "But the chapter was getting good..." },
     onToggleTrack: { action: "Call the FBI" },
-  }
+  },
 };
 
 const Template = (args) => <WorkNavigation {...args} />;
@@ -18,8 +18,9 @@ export const TrackingProg = Template.bind({});
 TrackingProg.args = {
   isTracked: true,
   canToggleTrack: true,
-  currentChapter: 0,
-  chapters: [{
+  currentChapter: 1,
+  chapters: [
+    {
       value: "0",
       label: "Chapter 1",
     },
@@ -30,15 +31,17 @@ TrackingProg.args = {
     {
       value: "2",
       label: "It was the best of times...",
-    }],
+    },
+  ],
 };
 
 export const NotTracking = Template.bind({});
 NotTracking.args = {
   isTracked: false,
   canToggleTrack: true,
-  currentChapter: 2,
-  chapters: [{
+  currentChapter: 1,
+  chapters: [
+    {
       value: "0",
       label: "Chapter 1",
     },
@@ -49,15 +52,17 @@ NotTracking.args = {
     {
       value: "2",
       label: "It was the best of times...",
-    }],
+    },
+  ],
 };
 
 export const GuestView = Template.bind({});
 GuestView.args = {
   isTracked: false,
   canToggleTrack: false,
-  currentChapter: 0,
-  chapters: [{
+  currentChapter: 1,
+  chapters: [
+    {
       value: "0",
       label: "Chapter 1",
     },
@@ -68,5 +73,6 @@ GuestView.args = {
     {
       value: "2",
       label: "It was the best of times...",
-    }],
+    },
+  ],
 };

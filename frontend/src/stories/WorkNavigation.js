@@ -6,23 +6,30 @@ import {
   FormControlLabel,
   Box,
   TextField,
+  Grid,
+  Paper,
 } from "@mui/material";
-
 
 const ToggleLabel = ({ onChange, checked, disabled }) => {
   return (
     <FormControlLabel
-    control={<Switch checked={checked} onChange={onChange} disabled={disabled} />}
-    label="Track Progress"
-    labelPlacement="start"
-    sx={{ mx: "auto" }}
-  />
+      control={
+        <Switch checked={checked} onChange={onChange} disabled={disabled} />
+      }
+      label="Track Progress"
+      labelPlacement="start"
+      sx={{ mx: "auto" }}
+    />
   );
 };
 
 const TrackingToggleLabel = ({ onToggleTrack, isTracked, canToggleTrack }) => {
   return canToggleTrack ? (
-    <ToggleLabel onChange={onToggleTrack} checked={isTracked} disabled={false} />
+    <ToggleLabel
+      onChange={onToggleTrack}
+      checked={isTracked}
+      disabled={false}
+    />
   ) : (
     <ToggleLabel onChange={null} checked={false} disabled={true} />
   );
@@ -41,49 +48,62 @@ const WorkNavigation = ({
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        mx: "auto",
-        boxShadow: 2,
-        borderRadius: 3,
-        width: "75%",
-        gap: 3,
+        flexGrow: 1,
+        overflow: "hidden",
+        px: 0.1,
       }}
     >
-      <Button sx={{ ml: 2 }} variant="contained" onClick={onPrev}>
-        Prev
-      </Button>
-      <TextField
-        id="chapter-selection"
-        select
-        label="Chapter"
-        defaultValue={currentChapter}
-        onChange={onChapterSelect}
-        SelectProps={{
-          native: true,
+      <Paper
+        sx={{
+          my: 0.1,
+          mx: "auto",
+          p: 0.1,
+          maxWidth: 600,
         }}
-        sx={{ mx: "auto", width: "55%" }}
-        variant="standard"
-        margin="dense"
       >
-        {chapters.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField>
-      <FormGroup>
-        <TrackingToggleLabel
-          onToggleTrack={onToggleTrack}
-          canToggleTrack={canToggleTrack}
-          isTracked={isTracked}
-        />
-      </FormGroup>
-      <Button sx={{ mr: 2 }} variant="contained" onClick={onNext}>
-        Next
-      </Button>
+        <Grid container justifyContent="center" alignItems="center" spacing={1}>
+          <Grid item>
+            <Button variant="contained" onClick={onPrev}>
+              Prev
+            </Button>
+          </Grid>
+          <Grid item xs flexGrow={1}>
+            <TextField
+              id="chapter-selection"
+              select
+              label="Chapter"
+              defaultValue={currentChapter}
+              onChange={onChapterSelect}
+              SelectProps={{
+                native: true,
+              }}
+              variant="standard"
+              margin="dense"
+              fullWidth
+            >
+              {chapters.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm="auto" order={{ xs: 4, sm: 3 }}>
+            <FormGroup>
+              <TrackingToggleLabel
+                onToggleTrack={onToggleTrack}
+                canToggleTrack={canToggleTrack}
+                isTracked={isTracked}
+              />
+            </FormGroup>
+          </Grid>
+          <Grid item order={{ xs: 3, sm: 4 }}>
+            <Button variant="contained" onClick={onNext}>
+              Next
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
     </Box>
   );
 };
