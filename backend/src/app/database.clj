@@ -50,6 +50,19 @@
 (def node (get-in system [:db :db]))
 
 ;;spec
+(s/def :xt/id int?)
+(s/def :data/type keyword?)
+
+(s/def :user/username string?)
+(s/def :user/privilege #{:author :admin})
+(s/def :user/follows (s/coll-of uuid? :distinct true :into []))
+(s/def :user/sponsors (s/coll-of uuid? :distinct true :into []))
+(s/def :user/reader-preferences (s/map-of keyword? string? :distinct true :into {}))
+            ;;18+ mode and/or track progress toggled (true or false)
+
+(s/def :user/account (s/keys :req [:xt/id :data/type :user/username :user/reader-preferences]
+                             :opt [:user/privilege :user/follows  :user/sponsors]))
+
 (s/def :work/title string?)
 (s/def :work/owner string?)
 (s/def :work/visibility #{:public :private :restricted})
@@ -78,6 +91,12 @@
 
 (defn remove-from-node [node eid]
   (xt/submit-tx node [[::xt/evict eid]]))
+
+(defn new-account
+  [account-info]
+  {:pre [(s/valid? :user/account account-info)]}
+  (xt/submit-tx node [[::xt/put
+                       account-info]]))
 
 (defn new-work
   [work-info]
@@ -118,38 +137,22 @@
 
   (start-dev)
 
-
   (def working-uuid (create-user "Tazspeare"))
-  (remove-user "Tazspeare")
 
   (s/conform even? 1000)
+
+  (new-account {:xt/id 3
+              :data/type :user
+              :user/username "Leifor"
+              :user/privilege :admin
+              :user/reader-preferences {:18+ "false" :track-progress "true"}})
+
   (new-work {:xt/id 1
              :data/type :work
              :work/title "World of Broken Dreams"
              :work/owner "kjforthman"
              :work/visibility :public
              :work/genres ["Romance" "Fantasy"]})
-
-
-  (defn create-chapter [title username content]
-    (let [uuid (random-uuid)]
-      (xt/submit-tx node
-                    [[::xt/put
-                      {:xt/id uuid
-                       :data-type :chapter
-                       :chapter/title title
-                       :chapter/content content
-                       :chapter/authors [(name->uuid username)]
-                       :chapter/pre-content? "" ;; or maps with polls?
-                       :chapter/post-content? "" ;; or maps with polls?
-                       :chapter/comments? {}
-                       :chapter/hits? 0
-                       :chapter/early-access? false}]])
-      uuid))
-
-  (create-work "Black Reflections" "Tazspeare" :public)
-
-  (create-chapter "Chapter 1" "Tazspeare" "Leif is the Max-Man")
 
   (defn get-work-id-for-user
     [username]
@@ -166,7 +169,6 @@
   (defn remove-work [name]
     (remove-from-node node (ffirst (get-work-id-for-user name))))
 
-  (remove-work "Tazspeare")
 
   (xt/sync node)
 
