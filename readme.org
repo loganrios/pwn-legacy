@@ -275,31 +275,32 @@ If you leave a review that /will/ impact the author's work's score, you must mak
 Aim to ship MVP before 07 December 2022.
 
 So, 15 weeks, give or take for midterms and finals.
-** Week 1
+** Week 0
 Davis: Lipsum generator
 Kyle & Logan: Mockups for web client
 
+** Week 1
+Davis: Stories for User Account
+Kyle & Logan: XTDB and Routes for User Account
+
 ** Week 2
-Davis: Stories for Chapter page
-Kyle & Logan: Backend routes and auth
+Davis: Stories for User Account / Frontend Controller logic for User Account
+Kyle & Logan: Routes and Frontend Controller logic for User Account
 
 ** Week 3
-Davis: Stories for Author Profile page
-Kyle & Logan: Reader-side logic
+Davis: Stories for Works / Frontend Controller logic for Works
+Kyle & Logan: XTDB and Routes for Works / Frontend Controller Logic for Works
 
 ** Week 4
-Davis: Stories for Reading List page
-Kyle & Logan: Author-side logic
+Davis: Stories for Chapters / Frontend Controller logic for Works
+Kyle & Logan: XTDB and Routes for Chapters / Frontend Controller logic for Chapters
 
 ** Week 5
-Davis: Stories for Home and Genres pages
-Kyle & Logan: Admin-side logic and Persistence (database)
+Davis: Stories for Sponsorships / Frontend Controller logic for Sponsorships
+Kyle & Logan: XTDB and Routes for Sponsorships / Frontend Controller logic for Sponsorships
 
 ** Week 6
-Chapter Page events and subs
-
-** Week 7
-
+Spare days / cleanup / User Authentication if still needed / Comments if we have time
 * Routes
 #+begin_src clojure
 :get ;; fetch a resource

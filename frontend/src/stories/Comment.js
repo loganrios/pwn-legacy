@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   Avatar,
-  Button,
   Paper,
   Grid,
   IconButton,
@@ -13,12 +12,11 @@ import ReplyIcon from "@mui/icons-material/Reply";
 
 const Comment = ({
   username,
-  avatar,
   timestamp,
   onEdit,
   onReply,
-  commentText,
-  avatarImage,
+  text,
+  image,
   isOwner,
   isLocked,
 }) => {
@@ -28,14 +26,6 @@ const Comment = ({
         flexGrow: 1,
         overflow: "hidden",
         px: 0.1,
-        /* display: "flex", */
-        /* flexDirection: "row", */
-        /* justifyContent: "left", */
-        /* typography: "p", */
-        /* mx: "auto", */
-        /* backgroundColor: "background.paper", */
-        /* boxShadow: 2, */
-        /* borderRadius: 3, */
       }}
     >
       <Paper
@@ -51,7 +41,7 @@ const Comment = ({
             <Box>
               <Avatar
                 alt={username}
-                src={avatarImage}
+                src={image}
                 sx={{ mx: "auto" }}
               ></Avatar>
               <p>{username}</p>
@@ -70,7 +60,7 @@ const Comment = ({
                 borderRadius: 3,
               }}
             >
-              <p>{commentText}</p>
+              <p>{text}</p>
             </Box>
           </Grid>
           <Grid item>

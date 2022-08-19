@@ -18,10 +18,10 @@ Owner.args = {
   isLocked: false,
   username: "Loganicus Swole",
   timestamp: "8/12/22 5:50 PM",
-  commentText:
+  text:
     "This is a placeholder comment. It does not have any value. The implications of what it says are up to you to decide. Here are more words to make it longer.",
   defaultAvatar: "L",
-  avatarImage: "https://avatarfiles.alphacoders.com/594/59437.jpg",
+  image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
 };
 
 export const OwnerLocked = Template.bind({});
@@ -30,10 +30,10 @@ OwnerLocked.args = {
   isLocked: true,
   username: "Loganicus Swole",
   timestamp: "8/12/22 5:50 PM",
-  commentText:
+  text:
     "This is a placeholder comment. It does not have any value. The implications of what it says are up to you to decide. Here are more words to make it longer.",
   defaultAvatar: "L",
-  avatarImage: "https://avatarfiles.alphacoders.com/594/59437.jpg",
+  image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
 };
 
 export const NotOwner = Template.bind({});
@@ -42,10 +42,10 @@ NotOwner.args = {
   isLocked: false,
   username: "Loganicus Swole",
   timestamp: "8/12/22 5:50 PM",
-  commentText:
+  text:
     "This is a placeholder comment. It does not have any value. The implications of what it says are up to you to decide. Here are more words to make it longer.",
   defaultAvatar: "L",
-  avatarImage: "https://avatarfiles.alphacoders.com/594/59437.jpg",
+  image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
 };
 
 export const NotOwnerLocked = Template.bind({});
@@ -54,8 +54,8 @@ NotOwnerLocked.args = {
   isLocked: true,
   username: "Loganicus Swole",
   timestamp: "8/12/22 5:50 PM",
-  commentText:
+  text:
     "This is a placeholder comment. It does not have any value. The implications of what it says are up to you to decide. Here are more words to make it longer.",
   defaultAvatar: "L",
-  avatarImage: "https://avatarfiles.alphacoders.com/594/59437.jpg",
+  image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
 };

@@ -31,7 +31,11 @@ const TrackingToggleLabel = ({ onToggleTrack, isTracked, canToggleTrack }) => {
       disabled={false}
     />
   ) : (
-    <ToggleLabel onChange={null} checked={false} disabled={true} />
+    <ToggleLabel
+      onChange={null}
+      checked={false}
+      disabled={true}
+    />
   );
 };
 
