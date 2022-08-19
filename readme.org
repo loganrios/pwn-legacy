@@ -299,3 +299,34 @@ Kyle & Logan: Admin-side logic and Persistence (database)
 Chapter Page events and subs
 
 ** Week 7
+
+* Routes
+#+begin_src clojure
+:get ;; fetch a resource
+:post ;; create a new resource
+:put ;; replace an existing resource
+:delete ;; intuitive
+
+#{["/login" :post]
+  ["/logout" :post]
+
+  ["/users" :post]
+  ["/users/:user-id" :get]
+  ["/users/:user-id" :put]
+
+  ["/works" :get]
+  ["/works" :post]
+  ["/works/:work-id" :get]
+  ["/works/:work-id" :put]
+  ["/works/:work-id" :delete]
+
+  ["/chapters" :post]
+  ["/chapters/:chapter-id" :get]
+  ["/chapters/:chapter-id" :put]
+  ["/chapters/:chapter-id" :delete]
+
+  ["/sponsorships" :post]
+  ["/sponsorships/:sponsorship-id" :get]
+  ["/sponsorships/:sponsorship-id" :put]
+  ["/sponsorships/:sponsorship-id" :delete]}
+#+end_src
