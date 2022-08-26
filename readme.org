@@ -311,15 +311,19 @@ Spare days / cleanup / User Authentication if still needed / Comments if we have
 #{["/login" :post]
   ["/logout" :post]
 
-  ["/users" :post]
-  ["/users/:user-id" :get]
-  ["/users/:user-id" :put]
+  ["/users" :post] ;; create a new user
+  ["/users/:user-id" :get] ;; view user at user id
+  ["/users/:user-id" :post] ;; create some resource for the given user-id
+  ["/users/:user-id" :put] ;; replace user at user id
 
   ["/works" :get]
   ["/works" :post]
   ["/works/:work-id" :get]
   ["/works/:work-id" :put]
   ["/works/:work-id" :delete]
+
+  ["/users/:user-id/works" :get]
+  ["/users/:user-id/works/:work-id/chapters" :get]
 
   ["/chapters" :post]
   ["/chapters/:chapter-id" :get]
