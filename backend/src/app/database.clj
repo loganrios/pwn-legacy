@@ -142,10 +142,10 @@
   (s/conform even? 1000)
 
   (new-account {:xt/id 3
-              :data/type :user
-              :user/username "Leifor"
-              :user/privilege :admin
-              :user/reader-preferences {:18+ "false" :track-progress "true"}})
+                :data/type :user
+                :user/username "Leifor"
+                :user/privilege :admin
+                :user/reader-preferences {:18+ "false" :track-progress "true"}})
 
   (new-work {:xt/id 1
              :data/type :work

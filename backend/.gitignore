@@ -6,4 +6,3 @@ tmp/
 *.dylib
 .nrepl-port
 data/
-/.nrepl-port
