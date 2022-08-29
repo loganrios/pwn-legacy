@@ -7,14 +7,21 @@
            ["@mui/material" :as mui]
            ["@mui/icons-material" :as mui-icons]
 
-           ["/Login$default" :as Login]))
+           [app.db]
+           [app.accounts.screens :as account-screens]))
+
+(defn rfy [screen]
+  (r/reactify-component screen))
 
 (defn main []
  [:meta {:name "viewport" :content "initial-scale=1, width=device-width"}]
- [:> Login {:onLoginSubmit #(js/console.log "Logging in!")
-            :onRegisterNav #(js/console.log "Navigating to Registration...")}])
-
+ ;; [:> (rfy account-screens/LoginScreen)]
+ ;; [:> (rfy account-screens/RegisterScreen)]
+   [:> (rfy account-screens/AuthorProfileScreen)])
 (defn start []
   (rdom/render [main] (js/document.getElementById "app")))
+
+(rf/dispatch-sync [:initialize-db])
+
 
 (start)

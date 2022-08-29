@@ -57,7 +57,7 @@
 (s/def :user/privilege #{:author :admin})
 (s/def :user/follows (s/coll-of uuid? :distinct true :into []))
 (s/def :user/sponsors (s/coll-of uuid? :distinct true :into []))
-(s/def :user/reader-preferences (s/map-of keyword? string? :distinct true :into {}))
+(s/def :user/reader-preferences (s/map-of keyword? boolean? :distinct true :into {}))
             ;;18+ mode and/or track progress toggled (true or false)
 
 (s/def :user/account (s/keys :req [:xt/id :data/type :user/username :user/reader-preferences]
