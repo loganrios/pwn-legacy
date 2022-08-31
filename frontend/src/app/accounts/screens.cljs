@@ -3,6 +3,7 @@
              ["/AccountRegistration$default" :as Register]
              ["/AuthorBio$default" :as Bio]
              ["/WebLinksList$default" :as LinksList]
+             ["/WebLinks$default" :as WebLinks]
              [app.db :refer [<sub
                              >evt]]
              [app.accounts.events]
@@ -33,4 +34,7 @@
     [:> LinksList {:readingList (get user :user/readingList)
                    :links (<sub [:links :Taz])
                    :onEdit #(js/console.log "Thanks for Editing")
-                   :onSubmit #(js/console.log "You have submitted death.")}]]))
+                   :onSubmit #(js/console.log "You have submitted death.")}]
+     [:> WebLinks {:readingListHref "apple.com"
+                   :links [{:label "Memery"
+                            :url "meme.com"}]}]]))
