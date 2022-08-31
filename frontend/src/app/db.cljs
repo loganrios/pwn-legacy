@@ -13,6 +13,11 @@
                          :privilege :author
                          :bioText "My name is Taz Michael Mann, fear my name!"
                          :image "https://avatarfiles.alphacoders.com/594/59437.jpg"
+                         :readingList "https://projectwebnovel.com/Taz/reading-list"
+                         :links {"Personal Site" "https://www.tazthemann.com"
+                                 "Discord" "https://discord.gg/fMQbrSSS"
+                                 "Facebook" "https://www.facebook.com/kjforthman/"
+                                 }
                          :follows [:Leif :Mazzy]
                          :sponsors [:Underground-72]
                          :reader-preferences {:adult-content false :track-progress true}}

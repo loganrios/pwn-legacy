@@ -19,8 +19,12 @@
   (let [user (<sub [:user :Taz])]
     [:> Bio {:isOwner false
              :username (get user :user/username)
-             :statsText "These are stats"
+             :wordcountText "Wordcount: 51,432"
+             :publicReviewsText "Public Reviews: 69"
+             :publicRatingsText "Public Ratings: 420"
              :bioText (get user :user/bioText)
              :image (get user :user/image)
+             :sponsorText "Please enter the amount you are paying towards your sponsorship of this author."
              :onFollow #(js/console.log "STALKER!")
-             :onSponsor #(js/console.log "Thanks for falling for my scam!")}]))
+             :onSponsorSubmit #(js/console.log "Thanks for falling for my scam!")
+             :onEditAvatar #(js/console.log "Why change a perfectly good picture?")}]))
