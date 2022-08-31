@@ -33,32 +33,32 @@ Primary.args = {
     {
       id: "personal site",
       label: "Personal Site",
-      value: ""
+      url: ""
     },
     {
       id: "discord",
       label: "Discord",
-      value: ""
+      url: ""
     },
     {
       id: "facebook",
       label: "Facebook",
-      value: ""
+      url: ""
     },
     {
       id: "twitter",
       label: "Twitter",
-      value: ""
+      url: ""
     },
     {
       id: "instagram",
       label: "Instagram",
-      value: ""
+      url: ""
     },
     {
       id: "snapchat",
       label: "Snapchat",
-      value: ""
+      url: ""
     },
   ],
 };

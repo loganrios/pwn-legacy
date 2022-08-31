@@ -2,20 +2,25 @@
   (:require [re-frame.core :refer [reg-sub]]
             [app.db :refer [<sub]]))
 
- (reg-sub :user
-           (fn [db [_ uuid]]
-             (get-in db [uuid])))
+(reg-sub :user
+         (fn [db [_ uuid]]
+           (get-in db [:users uuid])))
 
+(reg-sub :links
+           (fn [db [_ uuid]]
+             (map (fn [field]
+                    (let [name (first field)]
+                      (assoc {}
+                             :label name
+                             :url (second field)))) (get-in db [:users uuid :user/links]))))
 
 (comment
 
+;; (:label (:name [:Taz :links)
+;;  :url (:value ))
 
- (reg-sub :user-info
-           (fn [db [_ uuid]]
-             (get-in db [uuid])))
+  (get-in app.db/dev-db [:users :Taz])
 
- (get-in app.db/dev-db [:Taz :user/username])
+  (<sub [:user :Taz])
 
-(<sub [:user :Devrey])
-
- nil)
+  nil)

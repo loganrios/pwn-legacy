@@ -4,7 +4,15 @@
 
 (reg-event-db
  :accounts/login
- (fn [db [_ username password]]
+ (fn [db [_ email password]]
    (-> db
-       (assoc :user/email username)
+       (assoc :user/email email)
+       (assoc :jwt "some random string"))))
+
+(reg-event-db
+ :accounts/register
+ (fn [db [_ username email password]]
+   (-> db
+       (assoc :user/name username)
+       (assoc :user/email email)
        (assoc :jwt "some random string"))))

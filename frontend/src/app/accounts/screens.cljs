@@ -2,6 +2,7 @@
   (:require  ["/Login$default" :as Login]
              ["/AccountRegistration$default" :as Register]
              ["/AuthorBio$default" :as Bio]
+             ["/WebLinksList$default" :as LinksList]
              [app.db :refer [<sub
                              >evt]]
              [app.accounts.events]
@@ -27,4 +28,13 @@
              :sponsorText "Please enter the amount you are paying towards your sponsorship of this author."
              :onFollow #(js/console.log "STALKER!")
              :onSponsorSubmit #(js/console.log "Thanks for falling for my scam!")
-             :onEditAvatar #(js/console.log "Why change a perfectly good picture?")}]))
+             :onEditAvatar #(js/console.log "Why change a perfectly good picture?")}]
+    
+    [:> LinksList {
+                   :readingList (get user :user/readingList)
+   ;;                ;; :links (<sub [:links :Taz])
+   ;;                ;; :fields (<sub [:links :Taz])
+   ;;                ;; :onEdit #(js/console.log "Thanks for Editing")
+   ;;                ;; :onSubmit #(js/console.log "You have submitted death.")
+                   }]
+                  ))

@@ -33,9 +33,8 @@ function WebLinksDialog({ onEditText, onSubmit, textFields }) {
         <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
           {textFields.map((list) => (
             <TextField
-              id={list.id}
               label={list.label}
-              defaultValue={list.value}
+              defaultValue={list.url}
               onChange={onEditText}
             />
           ))}
