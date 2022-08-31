@@ -18,6 +18,7 @@
 
 (defn AuthorProfileScreen []
   (let [user (<sub [:user :Taz])]
+    [:<>
     [:> Bio {:isOwner false
              :username (get user :user/username)
              :wordcountText "Wordcount: 51,432"
@@ -29,12 +30,7 @@
              :onFollow #(js/console.log "STALKER!")
              :onSponsorSubmit #(js/console.log "Thanks for falling for my scam!")
              :onEditAvatar #(js/console.log "Why change a perfectly good picture?")}]
-    
-    [:> LinksList {
-                   :readingList (get user :user/readingList)
-   ;;                ;; :links (<sub [:links :Taz])
-   ;;                ;; :fields (<sub [:links :Taz])
-   ;;                ;; :onEdit #(js/console.log "Thanks for Editing")
-   ;;                ;; :onSubmit #(js/console.log "You have submitted death.")
-                   }]
-                  ))
+    [:> LinksList {:readingList (get user :user/readingList)
+                   :links (<sub [:links :Taz])
+                   :onEdit #(js/console.log "Thanks for Editing")
+                   :onSubmit #(js/console.log "You have submitted death.")}]]))

@@ -10,9 +10,8 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 
-function WebLinksDialog({ onEditText, onSubmit, textFields }) {
+export default function WebLinksList({ links, fields, readingList, onEdit, onSubmit, }) {
 
   const [open, setOpen] = React.useState(false);
 
@@ -24,41 +23,6 @@ function WebLinksDialog({ onEditText, onSubmit, textFields }) {
   };
 
   return (
-    <>
-      <IconButton aria-label="edit" onClick={handleOpen}>
-        <EditIcon />
-      </IconButton>
-      <Dialog open={open} onClose={handleClose} scroll="paper">
-        <DialogTitle id="weblinkslist-dialog">Links</DialogTitle>
-        <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
-          {textFields.map((list) => (
-            <TextField
-              label={list.label}
-              defaultValue={list.url}
-              onChange={onEditText}
-            />
-          ))}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={() => {
-              onSubmit(); handleClose();
-            }}
-          >
-            Save Changes
-          </Button>
-          <Button variant="outlined" onClick={handleClose}>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
-}
-
-const WebLinksList = ({ links, fields, readingList, onEdit, onSubmit, }) => {
-  return (
     <Box sx={{ display: "flex", flex: 1, flexDirection: "row", }}>
       <Box sx={{ display: "flex", flex: 1, flexDirection: "column", }}>
         <Link underline="hover"
@@ -67,24 +31,46 @@ const WebLinksList = ({ links, fields, readingList, onEdit, onSubmit, }) => {
           Reading List
         </Link>
         {links.map((list) => (
-          <Box sx={{ display: "flex" }}>
-            <Link underline="hover"
-              color="inherit"
-              href={list.url}>
-              {list.label}
-            </Link>
-          </Box>
+            <Box sx={{ display: "flex" }}>
+              <Link underline="hover"
+                color="inherit"
+                href={list.url}>
+                {list.label}
+              </Link>
+            </Box>
         ))}
       </Box>
       <Box>
-        <WebLinksDialog
-          onEditText={onEdit}
-          onSubmit={onSubmit}
-          textFields={fields}
-        />
+        <Button variant="outlined" onClick={handleOpen}>
+          Edit
+        </Button>
+        <Dialog open={open} onClose={handleClose} scroll="paper">
+          <DialogTitle id="weblinkslist-dialog">Links</DialogTitle>
+          <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
+            {links.map((list) => (
+                <TextField
+                  margin="dense"
+                  label={list.label}
+                  defaultValue={list.url}
+                  onChange={onEdit}
+                />
+            ))}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              onClick={() => {
+                onSubmit(); handleClose();
+              }}
+            >
+              Save Changes
+            </Button>
+            <Button variant="outlined" onClick={handleClose}>
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Box>
   );
 };
-
-export default WebLinksList;
