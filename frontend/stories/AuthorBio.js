@@ -65,9 +65,8 @@ function SponsorModal({ sponsorText, onSponsorSubmit }) {
           }}
         >
           <h2 id="sponsorship-modal">Sponsor</h2>
-          <b1>{sponsorText}</b1>
+          <body1>{sponsorText}</b1>
           <TextField
-            id="sponsor amount"
             label="Sponsor Amount"
             value={sponsorAmount}
             InputProps={{
@@ -82,7 +81,7 @@ function SponsorModal({ sponsorText, onSponsorSubmit }) {
           <Button
             variant="contained"
             onClick={() => {
-              onSponsorSubmit(sponsorAmount), handleClose(handleClose);
+              onSponsorSubmit(sponsorAmount); handleClose();
             }}
           >
             Submit
@@ -98,16 +97,15 @@ function SponsorModal({ sponsorText, onSponsorSubmit }) {
 
 const AuthorBio = ({
   username,
-  bioText,
-  wordcountText,
-  publicReviewsText,
-  publicRatingsText,
+  bio,
+  wordCount,
+  reviewsCount,
+  ratingsCount,
   image,
   isOwner,
   onFollow,
-  onSponsor,
-  sponsorText,
-  onSponsorSubmit,
+  desc,
+  onSubmit,
   onEditAvatar,
 }) => {
   return (
@@ -141,6 +139,7 @@ const AuthorBio = ({
               justifyContent: "start",
             }}
           >
+            ;;FIX make only an option for isOwner=true
             <ButtonBase
               onClick={onEditAvatar}
               sx={{
@@ -189,8 +188,8 @@ const AuthorBio = ({
               </Button>
             ) : (
               <SponsorModal
-                sponsorText={sponsorText}
-                onSponsorSubmit={onSponsorSubmit}
+                sponsorText={desc}
+                onSponsorSubmit={onSubmit}
               />
             )}
           </Box>
@@ -201,7 +200,7 @@ const AuthorBio = ({
               alignItems: "flex-start",
             }}
           >
-            <Typography variant="b1">{bioText}</Typography>
+            <Typography variant="body1">{bio}</Typography>
           </Box>
           <Box
             sx={{
@@ -211,12 +210,14 @@ const AuthorBio = ({
               lineHeight: 1,
             }}
           >
-            <Typography variant="b1">Wordcount: {wordcountText}</Typography>
-            <Typography variant="b1">
-              Public Reviews: {publicReviewsText}
+            <Typography variant="body1">
+              Word Count: {wordCount}
             </Typography>
-            <Typography variant="b1">
-              Public Ratings: {publicRatingsText}
+            <Typography variant="body1">
+              Public Reviews: {reviewsCount}
+            </Typography>
+            <Typography variant="body1">
+              Public Ratings: {ratingsCount}
             </Typography>
           </Box>
         </Box>
