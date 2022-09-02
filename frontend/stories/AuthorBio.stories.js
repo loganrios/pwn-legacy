@@ -17,9 +17,9 @@ export const Owner = Template.bind({});
 Owner.args = {
   isOwner: true,
   username: "Loganicus Swole",
-  wordcountText: "Wordcount: 69,420",
-  publicReviewsText: "Public Reviews: 69",
-  publicRatingsText: "Public Ratings: 420",
+  wordcountText: "69,420",
+  publicReviewsText: "69",
+  publicRatingsText: "420",
   bioText:
     "My name is Loganicus Swole and I like to read books about weight lifting ship my favorite characters.",
   image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
@@ -29,9 +29,9 @@ export const Visitor = Template.bind({});
 Visitor.args = {
   isOwner: false,
   username: "Loganicus Swole",
-  wordcountText: "Wordcount: 69,420",
-  publicReviewsText: "Public Reviews: 69",
-  publicRatingsText: "Public Ratings: 420",
+  wordcountText: "69,420",
+  publicReviewsText: "69",
+  publicRatingsText: "420",
   bioText:
     "My name is Loganicus Swole and I like to read books about weight lifting ship my favorite characters.",
   image: "https://avatarfiles.alphacoders.com/594/59437.jpg",

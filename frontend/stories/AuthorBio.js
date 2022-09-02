@@ -211,9 +211,13 @@ const AuthorBio = ({
               lineHeight: 1,
             }}
           >
-            <Typography variant="b1">{wordcountText}</Typography>
-            <Typography variant="b1">{publicReviewsText}</Typography>
-            <Typography variant="b1">{publicRatingsText}</Typography>
+            <Typography variant="b1">Wordcount: {wordcountText}</Typography>
+            <Typography variant="b1">
+              Public Reviews: {publicReviewsText}
+            </Typography>
+            <Typography variant="b1">
+              Public Ratings: {publicRatingsText}
+            </Typography>
           </Box>
         </Box>
       </ThemeProvider>
