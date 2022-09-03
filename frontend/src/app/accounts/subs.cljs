@@ -15,13 +15,19 @@
                              :url (second field))))
                   (get-in db [:users uuid :user/links]))))
 
+(defn get-sponsor-amount [user author-id]
+ (get-in (second user) [:user/sponsors author-id]))
+
+(reg-sub
+ :author/sponsor-data
+ (fn [db [_ author-id]]
+    (reduce (fn [sponsors user]
+              (if (get-sponsor-amount user author-id)
+                  (conj sponsors {:id (first user)
+                                  :username (:user/username (second user))
+                                  :donation (get-sponsor-amount user author-id)})
+                  sponsors))
+            []
+            (:users db))))
 (comment
-
-;; (:label (:name [:Taz :links)
-;;  :url (:value ))
-
-  (get-in app.db/dev-db [:users :Taz])
-
-  (<sub [:user :Taz])
-
-  nil)
+ nil)
