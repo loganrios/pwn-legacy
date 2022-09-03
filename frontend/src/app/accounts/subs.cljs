@@ -12,7 +12,8 @@
                     (let [name (first field)]
                       (assoc {}
                              :label name
-                             :url (second field)))) (get-in db [:users uuid :user/links]))))
+                             :url (second field))))
+                  (get-in db [:users uuid :user/links]))))
 
 (comment
 

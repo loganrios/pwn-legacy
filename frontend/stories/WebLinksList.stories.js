@@ -17,51 +17,16 @@ Primary.args = {
   readingList: "www.projectwebnovel.com/kjforthman/reading-list",
   links: [
     {
-      id: 1,
-      label:"Personal Site",
+      label: "Personal Site",
       url: "https://www.kjforthman.com"
     },
     {
-      id: 2,
-      label:"Discord",
-      url: ""
-    },
-    {
-      id: 3,
-      label:"Facebook",
-      url: "https://www.facebook.com/kjforthman/"
-    },
-  ],
-  fields: [
-    {
-      id: "personal site",
-      label: "Personal Site",
-      url: ""
-    },
-    {
-      id: "discord",
       label: "Discord",
       url: ""
     },
     {
-      id: "facebook",
       label: "Facebook",
-      url: ""
-    },
-    {
-      id: "twitter",
-      label: "Twitter",
-      url: ""
-    },
-    {
-      id: "instagram",
-      label: "Instagram",
-      url: ""
-    },
-    {
-      id: "snapchat",
-      label: "Snapchat",
-      url: ""
+      url: "https://www.facebook.com/kjforthman/"
     },
   ],
 };

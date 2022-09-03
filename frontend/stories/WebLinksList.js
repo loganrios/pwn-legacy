@@ -30,12 +30,12 @@ export default function WebLinksList({ links, fields, readingList, onEdit, onSub
           href={readingList}>
           Reading List
         </Link>
-        {links.map((list) => (
+        {links.map((item) => (
             <Box sx={{ display: "flex" }}>
               <Link underline="hover"
                 color="inherit"
-                href={list.url}>
-                {list.label}
+                href={item.url}>
+                {item.label}
               </Link>
             </Box>
         ))}
@@ -47,12 +47,12 @@ export default function WebLinksList({ links, fields, readingList, onEdit, onSub
         <Dialog open={open} onClose={handleClose} scroll="paper">
           <DialogTitle id="weblinkslist-dialog">Links</DialogTitle>
           <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
-            {links.map((list) => (
+            {links.map((item) => (
                 <TextField
                   margin="dense"
-                  label={list.label}
-                  defaultValue={list.url}
-                  onChange={onEdit}
+                  label={item.label}
+                  defaultValue={item.url}
+                  onChange={() => onEdit(list.label, list.url)}
                 />
             ))}
           </DialogContent>

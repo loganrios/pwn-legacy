@@ -2,8 +2,7 @@
   (:require  ["/Login$default" :as Login]
              ["/AccountRegistration$default" :as Register]
              ["/AuthorBio$default" :as Bio]
-             ["/WebLinksList$default" :as LinksList]
-             ["/WebLinks$default" :as WebLinks]
+             ["/SponsorList$default" :as SponsorList]
              [app.db :refer [<sub
                              >evt]]
              [app.accounts.events]
@@ -22,19 +21,22 @@
     [:<>
     [:> Bio {:isOwner false
              :username (get user :user/username)
-             :wordcountText "Wordcount: 51,432"
-             :publicReviewsText "Public Reviews: 69"
-             :publicRatingsText "Public Ratings: 420"
-             :bioText (get user :user/bioText)
+             :wordCount 51432
+             :reviewsCount 69
+             :ratingsCount 420
+             :bio (get user :user/bio)
              :image (get user :user/image)
-             :sponsorText "Please enter the amount you are paying towards your sponsorship of this author."
+             :readingList (get user :user/readingList)
+             :link (<sub [:links :Taz])
+             :desc "Please enter the amount you are paying towards your sponsorship of this author."
              :onFollow #(js/console.log "STALKER!")
-             :onSponsorSubmit #(js/console.log "Thanks for falling for my scam!")
+             :onSubmit #(js/console.log "Thanks for falling for my scam!")
              :onEditAvatar #(js/console.log "Why change a perfectly good picture?")}]
-    [:> LinksList {:readingList (get user :user/readingList)
-                   :links (<sub [:links :Taz])
-                   :onEdit #(js/console.log "Thanks for Editing")
-                   :onSubmit #(js/console.log "You have submitted death.")}]
-     [:> WebLinks {:readingListHref "apple.com"
-                   :links [{:label "Memery"
-                            :url "meme.com"}]}]]))
+    [:> SponsorList {:sponsors [{:id 1
+                                 :username :Leif
+                                 :donation 5}
+                                {:id 2
+                                 :username :Devrey
+                                 :donation 8}
+                                {:id 3 :username :Ash
+                                 :donation 10}]}]]))
