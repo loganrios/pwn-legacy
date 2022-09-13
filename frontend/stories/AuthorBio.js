@@ -4,6 +4,11 @@ import {
   Typography,
   Button,
   ButtonBase,
+  Link,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Modal,
   TextField,
   InputAdornment,
@@ -65,7 +70,7 @@ function SponsorModal({ sponsorText, onSponsorSubmit }) {
           }}
         >
           <h2 id="sponsorship-modal">Sponsor</h2>
-          <body1>{sponsorText}</b1>
+          <Typography variant="body1">{sponsorText}</Typography>
           <TextField
             label="Sponsor Amount"
             value={sponsorAmount}
@@ -104,6 +109,8 @@ const AuthorBio = ({
   image,
   isOwner,
   onFollow,
+  readingList,
+  link,
   desc,
   onSubmit,
   onEditAvatar,
@@ -124,10 +131,12 @@ const AuthorBio = ({
               xs: `"avatar avatar username username"
                    "avatar avatar follow sponsor"
                    "stats  stats  bio    bio"
-                   "stats  stats  bio    bio"`,
+                   "stats  stats  bio    bio"
+                   "  .      .    links  links"`,
               sm: `"avatar username username follow sponsor"
                    "avatar bio      bio      bio    bio"
-                   "stats  bio      bio      bio    bio"`,
+                   "stats  bio      bio      bio    bio"
+                   "stats  links    links    links  links"`,
             },
           }}
         >
@@ -139,7 +148,7 @@ const AuthorBio = ({
               justifyContent: "start",
             }}
           >
-            ;;FIX make only an option for isOwner=true
+            {/* FIXME make only an optionV for isOwner=true */}
             <ButtonBase
               onClick={onEditAvatar}
               sx={{
@@ -201,6 +210,29 @@ const AuthorBio = ({
             }}
           >
             <Typography variant="body1">{bio}</Typography>
+          </Box>
+          <Box
+            sx={{
+              gridArea: "links",
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Link underline="hover"
+              color="inherit"
+              href={readingList}>
+              Reading List
+            </Link>
+            {link.map((item) => (
+              <Box sx={{ display: "flex" }}>
+                <Link underline="hover"
+                  color="inherit"
+                  href={item.url}>
+                  {item.label}
+                </Link>
+              </Box>
+            ))}
           </Box>
           <Box
             sx={{

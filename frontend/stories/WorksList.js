@@ -38,10 +38,10 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function GetWorksList({ worksStatusList, dashNav, pageNav }) {
+function GetWorksList({ worksStatusList }) {
   return (
     <Grid container spacing={3}>
-      {worksStatusList.map((list) => (
+      {worksStatusList?.map((item) => (
         <Grid item>
           <Box
             sx={{
@@ -55,17 +55,17 @@ function GetWorksList({ worksStatusList, dashNav, pageNav }) {
               <CardMedia
                 component="img"
                 height="140"
-                image={list.cover}
-                alt={list.label}
+                image={item.cover}
+                alt={item.label}
               />
               <CardActions
                 disableSpacing={true}
                 sx={{ flexDirection: "column" }}
               >
-                <Button variant="contained" onClick={dashNav}>
+                <Button variant="contained" onClick={item.onDashNav}>
                   Dashboard
                 </Button>
-                <Button variant="contained" onClick={pageNav}>
+                <Button variant="contained" onClick={item.onPageNav}>
                   Page
                 </Button>
               </CardActions>
@@ -79,20 +79,20 @@ function GetWorksList({ worksStatusList, dashNav, pageNav }) {
 
 export default function WorksList({
   viewTab,
-  onTabSelect,
-  workTitle,
-  onDashNav,
-  onPageNav,
   ongoing,
   completed,
   hiatus,
 }) {
   const [value, setValue] = React.useState(viewTab);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <Box sx={{ width: "100%", boxShadow: 2, borderRadius: 3 }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={onTabSelect} variant="fullWidth">
+        <Tabs value={value} onChange={handleChange} variant="fullWidth">
           <Tab label="Ongoing" />
           <Tab label="Completed" />
           <Tab label="Hiatus" />
@@ -101,22 +101,16 @@ export default function WorksList({
       <TabPanel value={value} index={0}>
         <GetWorksList
           worksStatusList={ongoing}
-          dashNav={onDashNav}
-          pageNav={onPageNav}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <GetWorksList
           worksStatusList={completed}
-          dashNav={onDashNav}
-          pageNav={onPageNav}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <GetWorksList
           worksStatusList={hiatus}
-          dashNav={onDashNav}
-          pageNav={onPageNav}
         />
       </TabPanel>
     </Box>

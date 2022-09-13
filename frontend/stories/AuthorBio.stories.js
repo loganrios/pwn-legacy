@@ -23,6 +23,11 @@ Owner.args = {
   bio:
     "My name is Loganicus Swole and I like to read books about weight lifting ship my favorite characters.",
   image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
+  readingList: "https//www.projectwebnovel.com/Taz/reading-list",
+  link: [{
+    label: "Discord",
+    url: "https://www.discord.com",
+  }],
 };
 
 export const Visitor = Template.bind({});
@@ -37,4 +42,9 @@ Visitor.args = {
   image: "https://avatarfiles.alphacoders.com/594/59437.jpg",
   desc:
     "Please enter the amount you are paying towards your sponsorship of this author.",
+  readingList: "https//www.projectwebnovel.com/Taz/reading-list",
+  link: [{
+    label: "Discord",
+    url: "discord.com",
+  }],
 };
