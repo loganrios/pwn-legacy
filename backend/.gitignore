@@ -1,8 +1,21 @@
+kit.git-config.edn
 .DS_Store
-.idea
-*.log
-tmp/
-
-*.dylib
 .nrepl-port
+hs_err_pid*.log
+.cpcache/
+target
+log/
+.shadow-cljs/
+node_modules/
+modules/
 data/
+
+# IntelliJ
+*.iml
+.idea/
+
+# clj-kondo
+.clj-kondo/.cache/
+.calva/output-window/
+.lsp/.cache/
+
