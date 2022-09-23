@@ -38,51 +38,71 @@
                                                  :Taz 2}
                                     :reader-preferences {:adult-content false
                                                          :track-progress false}}}
-             :works { 1 #:work{:title "World of Broken Dreams"
-                               :owner :Taz
-                               :visibility :public
-                               :status :completed
-                               :contributors []
-                               :blurb "This is a bunch of dummy text."
-                               :warnings ["Traumatizing Content"]
-                               :genres ["Fantasy" "Romance"]
-                               :tags ["Action" "Drama" "LitRPG" "Magic" "Tragedy"]
-                               :chapters { 1 "The Beginning"
-                                           2 "The Day After Tomorrow"
-                                           3 "Aftermorrow"}
-                               :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629"
-                               :hits 9}
-                      2 #:work{:title "Black Reflections"
-                               :owner :Taz
-                               :visibility :public
-                               :status :ongoing
-                               :contributors []
-                               :blurb "This is also a bunch of dummy text."
-                               :warnings ["Traumatizing Content"]
-                               :genres ["Psychological" "Horror"]
-                               :tags ["Action" "Drama" "LitRPG" "Magic" "Tragedy" "Romance" "Fantasy"]
-                               :chapters { 1 "Zombies"
-                                           2 "Martial Artist Ogres in Space"
-                                           3 "Till She Was Gone"}
-                               :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629"
-                               :hits 2}
-                      3 #:work{:title "Become Stock Leviathan"
-                               :owner :Devrey
-                               :visibility :public
-                               :status :hiatus
-                               :contributors []
-                               :blurb "Only a Queen can rule the world."
-                               :warnings ["Adult Content" "Gore"]
-                               :genres ["Contemporary" "Nonfiction"]
-                               :tags ["Action" "Drama" "Spicy" "Magic" "Economic" "Realistic" "Autobiography"]
-                               :chapters { 1 "Of Stocks and Demons"
-                                           2 "Born to be Rich"
-                                           3 "Ash in a Broken World"
-                                           4 "Corporate Zombies? A fantastical metaphor for exploitation and social destruction."
-                                           5 "Queen"}
-                               :cover "https://www.royalroadcdn.com/public/covers-large/become-leviathan-61244.jpg?time=1656233092"
-                               :hits 489}
-                     }})
+             :works {1 #:work{:title "World of Broken Dreams"
+                              :owner :Taz
+                              :visibility :public
+                              :status :completed
+                              :contributors []
+                              :blurb "This is a bunch of dummy text."
+                              :warnings ["Traumatizing Content"]
+                              :genres ["Fantasy" "Romance"]
+                              :tags ["Action" "Drama" "LitRPG" "Magic" "Tragedy"]
+                              :chapters {1 :TheBeginning
+                                         2 :TheDayAfterTomorrow
+                                         3 :Aftermorrow}
+                              :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629"
+                              :hits 9}
+                     2 #:work{:title "Black Reflections"
+                              :owner :Taz
+                              :visibility :public
+                              :status :ongoing
+                              :contributors []
+                              :blurb "This is also a bunch of dummy text."
+                              :warnings ["Traumatizing Content"]
+                              :genres ["Psychological" "Horror"]
+                              :tags ["Action" "Drama" "LitRPG" "Magic" "Tragedy" "Romance" "Fantasy"]
+                              :chapters {1 :Zombies
+                                         2 :MartialArtistOrksinSpace
+                                         3 :TillSheWasGone}
+                              :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629"
+                              :hits 2}
+                     3 #:work{:title "Become Stock Leviathan"
+                              :owner :Devrey
+                              :visibility :public
+                              :status :hiatus
+                              :contributors []
+                              :blurb "Only a Queen can rule the world."
+                              :warnings ["Adult Content" "Gore"]
+                              :genres ["Contemporary" "Nonfiction"]
+                              :tags ["Action" "Drama" "Spicy" "Magic" "Economic" "Realistic" "Autobiography"]
+                              :chapters {1 :OfStocksandDemons
+                                         2 :BorntobeRich
+                                         3 :AshinaBrokenWorld
+                                         4 :CorporateZombiesAfantasticalmetaphorforexploitationandsocialdestruction
+                                         5 :Queen}
+                              :cover "https://www.royalroadcdn.com/public/covers-large/become-leviathan-61244.jpg?time=1656233092"
+                              :hits 489}}
+             :chapters {:TheBeginning #:chapter{:title "The Beginning"
+                                                :content "This is a really long string of text."
+                                                :authors [:Taz]
+                                                :pre-content "Sup dogs."
+                                                :post-content "Double sup dogs."
+                                                :hits 10
+                                                :early-access false}
+                        :TheDayAfterTomorrow #:chapter{:title "The Day After Tomorrow"
+                                                       :content "This is a string of text."
+                                                       :authors [:Taz]
+                                                       :pre-content "Heyo"
+                                                       :post-content "I am the strongest worder."
+                                                       :hits 12
+                                                       :early-access false}
+                        :Aftermorrow #:chapter{:title "Aftermorrow"
+                                               :content "This is a less long string of text."
+                                               :authors [:Taz]
+                                               :pre-content ""
+                                               :post-content ""
+                                               :hits 3
+                                               :early-access false}}})
 
 (def prod-db {})
 

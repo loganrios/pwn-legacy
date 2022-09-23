@@ -24,7 +24,6 @@
  (fn [db [_ user-id label url]]
    (assoc-in db [:users user-id :user/links label] url)))
 
-
 (reg-event-db
  :follow-all-author-works
  (fn [db [_ user-id author-id]]
@@ -34,36 +33,13 @@
 
 (comment
 
-  (let [db app.db/dev-db
-        author-id :Taz
-        user-id :Leif]
-    (assoc-in db [:users user-id :user/following]
-              (set (concat (get-in db [:users user-id :user/following])
-                      (reduce (fn [new-follows work]
-                                (let [work-id (first work)
-                                      work-data (second work)]
-                                  (if (= author-id (:work/owner work-data))
-                                    (conj new-follows work-id)
-                                    new-follows)))
-                              []
-                              (:works db))))))
 
-  (>evt [:follow-all-author-works :Devrey :Taz])
+  (>evt [:follow-all-author-works :Taz :Taz])
+
 
   (<sub [:db])
 
-  (defn author-works [db author-id]
-    (reduce (fn [new-follows work]
-              (let [work-id (first work)
-                    work-data (second work)]
-                (if (= author-id (:work/owner work-data))
-                  (conj new-follows work-id)
-                  new-follows)))
-            []
-            (:works db)))
 
-  (author-works app.db/dev-db :Taz)
 
-  (<sub [:db])
 
   nil)

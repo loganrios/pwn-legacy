@@ -9,6 +9,8 @@
  (fn [db [_ uuid]]
    (get-in db [:users uuid])))
 
+(<sub [:user :Taz])
+
 (reg-sub
  :author/format-links
  (fn [db [_ uuid]]
@@ -40,26 +42,18 @@
                 (map #(misc/id->work db %)
                      (misc/author-works-by-status db author-id status)))))
 
+
+
 (comment
 
-  (filter #(= :Taz (:work/owner %)) (vals (:works db/dev-db)))
+  (<sub [:chapter/word-count :TheBeginning])
+
+  (filter #(= :Taz (:work/owner %)) (vals (:works app.db/dev-db)))
 
   (misc/author-works app.db/dev-db :Taz)
 
   (misc/id->work app.db/dev-db 2)
 
-
   (<sub [:author/works-by-status :Taz :completed])
-  ;; => ({:value #object[cljs$core$rand_int],
-  ;; :label "World of Broken Dreams",
-  ;; :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629",
-  ;; :onDashNav #object[Function],
-  ;; :onPageNav #object[Function]}
-  ;; {:value #object[cljs$core$rand_int],
-  ;; :label "Black Reflections",
-  ;; :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629",
-  ;; :onDashNav #object[Function],
-  ;; :onPageNav #object[Function]})
-
 
   nil)

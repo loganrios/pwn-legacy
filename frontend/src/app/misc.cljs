@@ -28,6 +28,7 @@
    :cover (:work/cover work)
    :onDashNav #(js/console.log "Dash is the strongest Avenger.")
    :onPageNav #(js/console.log "Don't go...!")
+   :onAddChapter #(js/console.log "Add a New Chaptered")
    })
 
 (defn id->work [db id]
