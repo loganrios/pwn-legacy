@@ -13,18 +13,7 @@ import {
 
 const columns = [
   { id: "title", label: "Title", width: 150 },
-  { id: "date", label: "Date", width: 150 },
-  { id: "words", label: "Words", width: 150, type: "number", align: "right" },
-  { id: "views", label: "Views", width: 150, type: "number", align: "right" },
-  { id: "comment", label: "Comment", width: 150, align: "right" },
-  {
-    id: "controls",
-    sortable: false,
-    type: "actions",
-    label: "Controls",
-    width: 150,
-    align: "center",
-  },
+  { id: "date", label: "Posted", width: 150, align: "right" },
 ];
 
 const DashboardChapterList = ({ chapters }) => {
@@ -63,29 +52,14 @@ const DashboardChapterList = ({ chapters }) => {
               ?.map((item) => (
                 <TableRow hover key={item.id}>
                   <TableCell>{item.title}</TableCell>
-                  <TableCell>{item.date}</TableCell>
-                  <TableCell align="right">{item.words}</TableCell>
-                  <TableCell align="right">{item.views}</TableCell>
-                  <TableCell align="right">{item.comment}</TableCell>
-                  <TableCell align="center">
-                    <Button variant="contained" onClick={item.onEdit}>
-                      Edit
-                    </Button>
-                    <Button
-                      variant="contained"
-                      onClick={item.onDelete}
-                      color="error"
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
+                  <TableCell align="right">{item.date}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 100]}
+        rowsPerPageOptions={[1, 5, 10, 25, 100]}
         component="div"
         count={chapters.length}
         rowsPerPage={rowsPerPage}
