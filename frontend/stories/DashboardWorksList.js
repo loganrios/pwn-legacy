@@ -19,8 +19,8 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -102,31 +102,50 @@ export default function DashboardWorksList({
         display: "flex",
         flexDirection: "row",
         width: "100%",
-        boxShadow: 2,
-        borderRadius: 3,
+        /* boxShadow: 2, */
+        /* borderRadius: 3, */
       }}
     >
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box>
         <Tabs
           orientation="vertical"
           value={value}
           onChange={handleChange}
-          variant="fullWidth"
+          variant="standard"
+          sx={{
+            justifyContent: "center",
+          }}
         >
-          <Tab label="Ongoing" />
-          <Tab label="Completed" />
-          <Tab label="Hiatus" />
+          <Tab
+            label="Ongoing"
+            sx={{ border: 1, borderRadius: 1, borderColor: "divider" }}
+          />
+          <Tab
+            label="Completed"
+            sx={{ border: 1, borderRadius: 1, borderColor: "divider" }}
+          />
+          <Tab
+            label="Hiatus"
+            sx={{ border: 1, borderRadius: 1, borderColor: "divider" }}
+          />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <GetWorksList worksStatusList={ongoing} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <GetWorksList worksStatusList={completed} />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <GetWorksList worksStatusList={hiatus} />
-      </TabPanel>
+      <Box
+        sx={{
+          borderRadius: 2,
+          boxShadow: 2,
+        }}
+      >
+        <TabPanel value={value} index={0}>
+          <GetWorksList worksStatusList={ongoing} />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <GetWorksList worksStatusList={completed} />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <GetWorksList worksStatusList={hiatus} />
+        </TabPanel>
+      </Box>
     </Box>
   );
 }

@@ -56,7 +56,12 @@ function SponsorModal({ sponsorText, onSponsorSubmit }) {
 
   return (
     <>
-      <Button variant="contained" aria-label="sponsor" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        aria-label="sponsor"
+        onClick={handleOpen}
+        disabled
+      >
         Sponsor
       </Button>
       <Modal open={open} onClose={handleClose}>
@@ -86,7 +91,8 @@ function SponsorModal({ sponsorText, onSponsorSubmit }) {
           <Button
             variant="contained"
             onClick={() => {
-              onSponsorSubmit(sponsorAmount); handleClose();
+              onSponsorSubmit(sponsorAmount);
+              handleClose();
             }}
           >
             Submit
@@ -128,39 +134,18 @@ const AuthorBio = ({
             p: { xs: 0, sm: 2 },
             gridTemplateRows: "auto",
             gridTemplateAreas: {
-              xs: `"avatar avatar username username"
-                   "avatar avatar follow sponsor"
+              xs: `"username username username username"
+                   "follow follow sponsor sponsor"
                    "stats  stats  bio    bio"
                    "stats  stats  bio    bio"
                    "  .      .    links  links"`,
-              sm: `"avatar username username follow sponsor"
-                   "avatar bio      bio      bio    bio"
-                   "stats  bio      bio      bio    bio"
-                   "stats  links    links    links  links"`,
+              sm: `"username username username follow sponsor"
+                   "bio      bio      bio      bio    bio"
+                   "bio      bio      bio      bio    bio"
+                   "stats    stats    links    links  links"`,
             },
           }}
         >
-          <Box
-            sx={{
-              gridArea: "avatar",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-            }}
-          >
-            {/* FIXME make only an optionV for isOwner=true */}
-            <ButtonBase
-              onClick={onEditAvatar}
-              sx={{
-                width: "auto",
-                height: "auto",
-                maxWidth: { xs: 150, sm: 175 },
-                maxHeight: { xs: 150, sm: 175 },
-              }}
-            >
-              <Img alt="default" src={image} />
-            </ButtonBase>
-          </Box>
           <Box
             sx={{
               gridArea: "username",
@@ -196,10 +181,7 @@ const AuthorBio = ({
                 Sponsor
               </Button>
             ) : (
-              <SponsorModal
-                sponsorText={desc}
-                onSponsorSubmit={onSubmit}
-              />
+              <SponsorModal sponsorText={desc} onSponsorSubmit={onSubmit} />
             )}
           </Box>
           <Box
@@ -219,16 +201,12 @@ const AuthorBio = ({
               flexDirection: "column",
             }}
           >
-            <Link underline="hover"
-              color="inherit"
-              href={readingList}>
+            <Link underline="hover" color="inherit" href={readingList}>
               Reading List
             </Link>
             {link.map((item) => (
               <Box sx={{ display: "flex" }}>
-                <Link underline="hover"
-                  color="inherit"
-                  href={item.url}>
+                <Link underline="hover" color="inherit" href={item.url}>
                   {item.label}
                 </Link>
               </Box>
@@ -242,9 +220,7 @@ const AuthorBio = ({
               lineHeight: 1,
             }}
           >
-            <Typography variant="body1">
-              Word Count: {wordCount}
-            </Typography>
+            <Typography variant="body1">Word Count: {wordCount}</Typography>
             <Typography variant="body1">
               Public Reviews: {reviewsCount}
             </Typography>
