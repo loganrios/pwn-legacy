@@ -26,4 +26,27 @@
  :chapters/get-success
  (fn [db [_ {:keys [items]}]]
    (-> db
-    (assoc :works (vec->idxent (map (fn [item] (map->nsmap item "chapter")) items))))))
+    (assoc :chapters (vec->idxent (map (fn [item] (map->nsmap item "chapter")) items) :chapter/id)))))
+
+(reg-event-fx
+ :chapter/create
+ (fn [{:keys [db]} [evt-nm title content authors hits]]
+   {:http-xhrio {:method :post
+                 :uri (endpoint "collections" "chapters" "records")
+                 :params {:title title :content content :authors authors :hits hits}
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
+
+
+(comment
+
+  (>evt [:chapters/get])
+
+  (>evt [:chapter/create "TheEnd" "Hello the end of the world, my name is cheese." "hz5p7g21fca6k2w" 1])
+
+  (<sub [:db])
+
+  (>evt [:initialize-db])
+
+ nil)
