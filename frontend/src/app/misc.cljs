@@ -7,8 +7,8 @@
   (str/join "/" (cons api-url params)))
 
 (defn vec->idxent
-  [v]
-  (reduce #(assoc %1 (:chapter/id %2) %2) {} v))
+  [v idx]
+  (reduce #(assoc %1 (idx %2) %2) {} v))
 
 (defn map->nsmap
   [m n]

@@ -43,7 +43,7 @@
 
   (>evt [:chapters/get])
 
-  (>evt [:chapter/create "TheEnd" "Hello the end of the world, my name is cheese." "hz5p7g21fca6k2w" 1])
+  (>evt [:chapter/create "The End" "Hello the end of the world, my name is cheese." ["hz5p7g21fca6k2w"] 1])
 
   (<sub [:db])
 
