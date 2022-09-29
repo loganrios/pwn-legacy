@@ -46,7 +46,7 @@
 
 (comment
 
-  (<sub [:chapter/word-count :TheBeginning])
+  (misc/word-count app.db/dev-db :TheBeginning)
 
   (filter #(= :Taz (:work/owner %)) (vals (:works app.db/dev-db)))
 
