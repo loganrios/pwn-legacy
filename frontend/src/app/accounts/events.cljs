@@ -30,7 +30,7 @@
 
 (reg-event-fx
  :user/create
- (fn [{:keys [db]} [evt-nm email password passwordConfirm]]
+ (fn [{:keys [db]} [evt-nm username email password passwordConfirm]]
    {:http-xhrio {:method :post
                  :uri (endpoint "users")
                  :params {:email email
@@ -38,8 +38,18 @@
                           :passwordConfirm passwordConfirm}
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
+                 :on-success [:user/create-profile username]
                  :on-failure [:request-error evt-nm]}}))
 
+(reg-event-fx
+ :user/create-profile
+ (fn [{:keys [db]} [evt-nm username {:keys [profile]}]]
+   {:http-xhrio {:method :patch
+                 :uri (endpoint "collections" "profiles" "records" (:id profile))
+                 :params {:username username :privilege "reader"}
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
 (reg-event-fx
  :profiles/get
  (fn [{:keys [db]} [evt-nm]]
@@ -83,6 +93,7 @@
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
+;;TODO this may not be necessary. Discuss with Logan
 (reg-event-fx
  :profile/delete
  (fn [{:keys [db]} [evt-nm id]]
@@ -91,7 +102,6 @@
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
-
 
 (reg-event-db
  :edit-url
@@ -109,22 +119,25 @@
 
 
 
+  (userId->profileId app.db/dev-db :Taz)
 
-   (userId->profileId app.db/dev-db :Taz)
+  (>evt [:profiles/get])
 
-   (>evt [:users/get])
+  (>evt [:profile/get (userId->profileId "hz5p7g21fca6k2w")])
 
-   (>evt [:user/get (userId->profileId "hz5p7g21fca6k2w")])
+  (>evt [:profile/get "627yqun0gnk0cky"])
 
-   (>evt [:user/get "1nkqyfnr7dztkqc"])
+  (>evt [:profile/delete "hibkbmrop7gidxv"])
 
-   (>evt [:user/create "Fake User" "thisemail@email.comm" "passwordd" "passwordd"])
+  (>evt [:profile/update "1nkqyfnr7dztkqc" :username "FakeUser" :privilege "reader"])
 
-   (>evt [:follow-all-author-works :Taz :Taz])
+  (>evt [:user/create "Fake User" "tested@email.com" "passwordd" "passwordd"])
 
-   (<sub [:db])
+  (>evt [:follow-all-author-works :Taz :Taz])
 
-   (>evt [:initialize-db])
+  (<sub [:db])
+
+  (>evt [:initialize-db])
 
 
-   nil)
+ nil)
