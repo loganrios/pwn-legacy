@@ -75,41 +75,17 @@
                  :on-failure [:request-error evt-nm]}}))
 
 
-;; (reg-event-db
-;;  :work/get-success
-;;  (fn [db [_ {:keys [id created updated title owner visibility contributors blurb chapters cover hits status]}]]
-;;    (-> db
-;;        (assoc :work/id id)
-;;        (assoc :work/created created)
-;;        (assoc :work/updated updated)
-;;        (assoc :work/title title)
-;;        (assoc :work/owner owner)
-;;        (assoc :work/visibility visibility)
-;;        (assoc :work/contributors contributors)
-;;        (assoc :work/blurb blurb)
-;;        (assoc :work/chapters chapters)
-;;        (assoc :work/cover cover)
-;;        (assoc :work/hits hits)
-;;        (assoc :work/status status))))
-
 (comment
-
-
-
 
   (>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
 
   (>evt [:work/delete "88pqduh6jnyt8f3"])
 
-
   (>evt [:works/get])
 
   (>evt [:work/get "dscgb2ve6my390s"])
 
-  (:works app.db/dev-db)
-
   (>evt [:work/create "Black Reflections" "hz5p7g21fca6k2w" "public" "1" "ongoing"])
-
 
   (<sub [:db])
 

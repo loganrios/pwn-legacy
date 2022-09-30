@@ -10,6 +10,7 @@
 
             [app.misc :refer [vec->idxent
                               map->nsmap
+                              userId->profileId
                               endpoint
                               author-works]]))
 (reg-event-db
@@ -27,34 +28,69 @@
        (assoc :user/email email)
        (assoc :jwt "some random string"))))
 
-
-
 (reg-event-fx
  :user/create
- (fn [{:keys [db]} [evt-nm username email password passwordConfirm]]
+ (fn [{:keys [db]} [evt-nm email password passwordConfirm]]
    {:http-xhrio {:method :post
                  :uri (endpoint "users")
-                 :params {:profile-username username
-                          :email email
+                 :params {:email email
                           :password password
-                          :passwordConfirm passwordConfirm
-                          :profile-privilege "reader"
-                          :profile-reader_preferences {":adult-content" "false"
-                                                       ":track-progress" "true"}}
+                          :passwordConfirm passwordConfirm}
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
+(reg-event-fx
+ :profiles/get
+ (fn [{:keys [db]} [evt-nm]]
+   {:http-xhrio {:method :get
+                 :uri (endpoint "collections" "profiles" "records")
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-success [:profiles/get-success]
+                 :on-failure [:request-error evt-nm]}}))
 
-;; (reg-event-fx
-;;  :work/create
-;;  (fn [{:keys [db]} [evt-nm title owner visibility hits status]]
-;;    {:http-xhrio {:method :post
-;;                  :uri (endpoint "collections" "works" "records")
-;;                  :params {:title title :owner owner :visibility visibility :hits hits :status status}
-;;                  :format (json-request-format)
-;;                  :response-format (json-response-format {:keywords? true})
-;;                  :on-failure [:request-error evt-nm]}}))
+(reg-event-db
+ :profiles/get-success
+ (fn [db [_ {:keys [items]}]]
+   (-> db
+    (assoc :users (vec->idxent (map (fn [item] (map->nsmap item "user")) items) :user/userId)))))
+
+(reg-event-fx
+ :profile/get
+ (fn [{:keys [db]} [evt-nm id]]
+   {:http-xhrio {:method :get
+                 :uri (endpoint "collections" "profiles" "records" id)
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-success [:profile/get-success]
+                 :on-failure [:request-error evt-nm]}}))
+
+(reg-event-db
+ :profile/get-success
+ (fn [db [_ %]]
+   (let [user (map->nsmap % "user")]
+     (-> db
+      (assoc :users (assoc {} (:user/userId user) user))))))
+
+(reg-event-fx
+ :profile/update
+ (fn [{:keys [db]} [evt-nm id field new-val]]
+   {:http-xhrio {:method :patch
+                 :uri (endpoint "collections" "profiles" "records" id)
+                 :params {field new-val}
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
+
+(reg-event-fx
+ :profile/delete
+ (fn [{:keys [db]} [evt-nm id]]
+   {:http-xhrio {:method :delete
+                 :uri (endpoint "collections" "profiles" "records" id)
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
 
 
 (reg-event-db
@@ -71,28 +107,16 @@
 
 (comment
 
-   (reg-event-fx
-    :users/get
-    (fn [{:keys [db]} [evt-nm]]
-      {:http-xhrio {:method :get
-                    :uri (endpoint "users")
-                    :format (json-request-format)
-                    :response-format (json-response-format {:keywords? true})
-                    :on-success [:users/get-success]
-                    :on-failure [:request-error evt-nm]}}))
-
-   (reg-event-db
-    :users/get-success
-    (fn [db [_ {:keys [items]}]]
-      items))
 
 
 
-      ;; (-> db
-      ;;  (assoc :users (vec->idxent (map (fn [item] (map->nsmap item "user")) items) :user/id)))))
-
+   (userId->profileId app.db/dev-db :Taz)
 
    (>evt [:users/get])
+
+   (>evt [:user/get (userId->profileId "hz5p7g21fca6k2w")])
+
+   (>evt [:user/get "1nkqyfnr7dztkqc"])
 
    (>evt [:user/create "Fake User" "thisemail@email.comm" "passwordd" "passwordd"])
 

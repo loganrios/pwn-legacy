@@ -20,6 +20,9 @@
                 (assoc acc new-kw v)))
             {} m))
 
+(defn userId->profileId [db userId]
+  (get-in db [:users userId :user/id]))
+
 (defn get-sponsor-amount [user author-id]
   (get-in (second user) [:user/sponsoring author-id]))
 

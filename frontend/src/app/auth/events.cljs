@@ -44,6 +44,8 @@
 
   (>evt [:auth/login "dummyemail@realauthor.com" "password"])
 
+  (>evt [:auth/login "thisemail@email.comm" "passwordd"])
+
   (>evt [:auth/logout])
 
   (<sub [:db])

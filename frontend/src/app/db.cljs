@@ -19,7 +19,8 @@
                                  :following #{:Leif :Mazzy}
                                  :sponsoring {:Underground-72 2000 :Devrey 15000}
                                  :reader-preferences {:adult-content false
-                                                      :track-progress true}}
+                                                      :track-progress true}
+                                 :id "test"}
                      :Leif #:user{:username "King-of-Basketball"
                                   :privilege :author
                                   :bio "Poetry is for nerdz"
