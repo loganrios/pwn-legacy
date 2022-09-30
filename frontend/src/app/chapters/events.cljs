@@ -29,6 +29,23 @@
     (assoc :chapters (vec->idxent (map (fn [item] (map->nsmap item "chapter")) items) :chapter/id)))))
 
 (reg-event-fx
+ :chapter/get
+ (fn [{:keys [db]} [evt-nm id]]
+   {:http-xhrio {:method :get
+                 :uri (endpoint "collections" "chapters" "records" id)
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-success [:chapter/get-success]
+                 :on-failure [:request-error evt-nm]}}))
+
+(reg-event-db
+ :chapter/get-success
+ (fn [db [_ %]]
+   (let [chapter (map->nsmap % "chapter")]
+     (-> db
+      (assoc :chapters (assoc {} (:chapter/id chapter) chapter))))))
+
+(reg-event-fx
  :chapter/create
  (fn [{:keys [db]} [evt-nm title content authors hits]]
    {:http-xhrio {:method :post
@@ -47,14 +64,28 @@
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
+(reg-event-fx
+ :chapter/delete
+ (fn [{:keys [db]} [evt-nm id]]
+   {:http-xhrio {:method :delete
+                 :uri (endpoint "collections" "chapters" "records" id)
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
 
 (comment
 
   (>evt [:chapters/get])
 
+  (>evt [:chapter/get "q52qprlb2geq5co"])
+
   (>evt [:chapter/create "The End" "Hello the end of the world, my name is cheese." ["hz5p7g21fca6k2w"] 1])
 
+  (>evt [:chapter/delete "f72goy1ol1uivuy"])
+
   (>evt [:chapter/update "q52qprlb2geq5co" :title "New End"])
+
+  (>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
 
   (<sub [:db])
 

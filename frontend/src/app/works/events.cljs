@@ -28,6 +28,22 @@
    (-> db
     (assoc :works (vec->idxent (map (fn [item] (map->nsmap item "work")) items) :work/id)))))
 
+(reg-event-fx
+ :work/get
+ (fn [{:keys [db]} [evt-nm id]]
+   {:http-xhrio {:method :get
+                 :uri (endpoint "collections" "works" "records" id)
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-success [:work/get-success]
+                 :on-failure [:request-error evt-nm]}}))
+
+(reg-event-db
+ :work/get-success
+ (fn [db [_ %]]
+   (let [work (map->nsmap % "work")]
+     (-> db
+      (assoc :works (assoc {} (:work/id work) work))))))
 
 (reg-event-fx
  :work/create
@@ -53,21 +69,11 @@
  :work/delete
  (fn [{:keys [db]} [evt-nm id]]
    {:http-xhrio {:method :delete
-                 :uri (endpoint "collections" "work" "records" id)
+                 :uri (endpoint "collections" "works" "records" id)
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
-;; (reg-event-fx
-;;  :work/get
-;;  (fn [{:keys [db]} [evt-nm id]]
-;;    {:http-xhrio {:method :get
-;;                  :uri (endpoint "collections" "works" "records" :id)
-;;                  :params {:id id}
-;;                  :format (json-request-format)
-;;                  :response-format (json-response-format {:keywords? true})
-;;                  :on-success [:work/get-success]
-;;                  :on-failure [:request-error evt-nm]}}))
 
 ;; (reg-event-db
 ;;  :work/get-success
@@ -86,26 +92,29 @@
 ;;        (assoc :work/hits hits)
 ;;        (assoc :work/status status))))
 
-(comment)
+(comment
 
 
 
-(>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
 
-(>evt [:work/delete "88pqduh6jnyt8f3"])
+  (>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
 
-
-(>evt [:works/get])
-
-(>evt [:work/get "dscgb2ve6my390s"])
-
-(>evt [:work/create "Black Reflections" "hz5p7g21fca6k2w" "public" "1" "ongoing"])
+  (>evt [:work/delete "88pqduh6jnyt8f3"])
 
 
-(<sub [:db])
+  (>evt [:works/get])
 
-(>evt [:initialize-db])
+  (>evt [:work/get "dscgb2ve6my390s"])
+
+  (:works app.db/dev-db)
+
+  (>evt [:work/create "Black Reflections" "hz5p7g21fca6k2w" "public" "1" "ongoing"])
+
+
+  (<sub [:db])
+
+  (>evt [:initialize-db])
 
 
 
-nil
+ nil)
