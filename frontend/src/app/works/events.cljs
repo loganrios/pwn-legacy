@@ -39,6 +39,24 @@
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
+(reg-event-fx
+ :work/update
+ (fn [{:keys [db]} [evt-nm id field new-val]]
+   {:http-xhrio {:method :patch
+                 :uri (endpoint "collections" "works" "records" id)
+                 :params {field new-val}
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
+
+(reg-event-fx
+ :work/delete
+ (fn [{:keys [db]} [evt-nm id]]
+   {:http-xhrio {:method :delete
+                 :uri (endpoint "collections" "work" "records" id)
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
 
 ;; (reg-event-fx
 ;;  :work/get
@@ -71,19 +89,11 @@
 (comment)
 
 
-(reg-event-fx
- :work/update
- (fn [{:keys [db]} [evt-nm id title]]
-   {:http-xhrio {:method :patch
-                 :uri (endpoint "collections" "works" "records" ":id")
-                 :params {:id id :title title}
-                 :format (json-request-format)
-                 :response-format (json-response-format {:keywords? true})
-                 :on-failure [:request-error evt-nm]}}))
 
-(>evt [:work/update "w4nx6ag9xuvjccu" "I am become Hell"])
+(>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
 
-   ;; "1uig93r3vda08kt"
+(>evt [:work/delete "88pqduh6jnyt8f3"])
+
 
 (>evt [:works/get])
 
