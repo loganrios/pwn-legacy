@@ -68,23 +68,34 @@
 ;;        (assoc :work/hits hits)
 ;;        (assoc :work/status status))))
 
-(comment
+(comment)
 
 
+(reg-event-fx
+ :work/update
+ (fn [{:keys [db]} [evt-nm id title]]
+   {:http-xhrio {:method :patch
+                 :uri (endpoint "collections" "works" "records" ":id")
+                 :params {:id id :title title}
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
+
+(>evt [:work/update "w4nx6ag9xuvjccu" "I am become Hell"])
 
    ;; "1uig93r3vda08kt"
 
-   (>evt [:works/get])
+(>evt [:works/get])
 
-   (>evt [:work/get "dscgb2ve6my390s"])
+(>evt [:work/get "dscgb2ve6my390s"])
 
-   (>evt [:work/create "Black Reflections" "hz5p7g21fca6k2w" "public" "1" "ongoing"])
-
-
-   (<sub [:db])
-
-   (>evt [:initialize-db])
+(>evt [:work/create "Black Reflections" "hz5p7g21fca6k2w" "public" "1" "ongoing"])
 
 
+(<sub [:db])
 
- nil)
+(>evt [:initialize-db])
+
+
+
+nil

@@ -7,8 +7,9 @@
 (def <sub (comp deref subscribe))
 (def >evt dispatch)
 
-(def dev-db {:jwt "Some string"
-             :my-uuid :Taz
+(def dev-db {:user/email ""
+             :user/id ""
+             :token ""
              :users {:Taz #:user{:username "Tazspeare"
                                  :privilege :author
                                  :bio "My name is Taz Michael Mann, fear my name!"

@@ -28,17 +28,33 @@
        (assoc :jwt "some random string"))))
 
 
+
 (reg-event-fx
  :user/create
- (fn [{:keys [db]} [evt-nm email password passwordConfirm]]
+ (fn [{:keys [db]} [evt-nm username email password passwordConfirm]]
    {:http-xhrio {:method :post
-                 :uri (endpoint "collections" "works" "records")
-                 :params {:email email :password password :passwordConfirm passwordConfirm}
+                 :uri (endpoint "users")
+                 :params {:profile-username username
+                          :email email
+                          :password password
+                          :passwordConfirm passwordConfirm
+                          :profile-privilege "reader"
+                          :profile-reader_preferences {":adult-content" "false"
+                                                       ":track-progress" "true"}}
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
 
+;; (reg-event-fx
+;;  :work/create
+;;  (fn [{:keys [db]} [evt-nm title owner visibility hits status]]
+;;    {:http-xhrio {:method :post
+;;                  :uri (endpoint "collections" "works" "records")
+;;                  :params {:title title :owner owner :visibility visibility :hits hits :status status}
+;;                  :format (json-request-format)
+;;                  :response-format (json-response-format {:keywords? true})
+;;                  :on-failure [:request-error evt-nm]}}))
 
 
 (reg-event-db
@@ -55,13 +71,36 @@
 
 (comment
 
+   (reg-event-fx
+    :users/get
+    (fn [{:keys [db]} [evt-nm]]
+      {:http-xhrio {:method :get
+                    :uri (endpoint "users")
+                    :format (json-request-format)
+                    :response-format (json-response-format {:keywords? true})
+                    :on-success [:users/get-success]
+                    :on-failure [:request-error evt-nm]}}))
 
-  (>evt [:follow-all-author-works :Taz :Taz])
+   (reg-event-db
+    :users/get-success
+    (fn [db [_ {:keys [items]}]]
+      items))
 
 
-  (<sub [:db])
+
+      ;; (-> db
+      ;;  (assoc :users (vec->idxent (map (fn [item] (map->nsmap item "user")) items) :user/id)))))
 
 
+   (>evt [:users/get])
+
+   (>evt [:user/create "Fake User" "thisemail@email.comm" "passwordd" "passwordd"])
+
+   (>evt [:follow-all-author-works :Taz :Taz])
+
+   (<sub [:db])
+
+   (>evt [:initialize-db])
 
 
-  nil)
+   nil)

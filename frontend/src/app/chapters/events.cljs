@@ -37,6 +37,15 @@
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
+(reg-event-fx
+ :chapter/update
+ (fn [{:keys [db]} [evt-nm id field new-val]]
+   {:http-xhrio {:method :patch
+                 :uri (endpoint "collections" "chapters" "records" id)
+                 :params {field new-val}
+                 :format (json-request-format)
+                 :response-format (json-response-format {:keywords? true})
+                 :on-failure [:request-error evt-nm]}}))
 
 
 (comment
@@ -44,6 +53,8 @@
   (>evt [:chapters/get])
 
   (>evt [:chapter/create "The End" "Hello the end of the world, my name is cheese." ["hz5p7g21fca6k2w"] 1])
+
+  (>evt [:chapter/update "q52qprlb2geq5co" :title "New End"])
 
   (<sub [:db])
 
