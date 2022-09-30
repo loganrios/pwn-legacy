@@ -47,10 +47,10 @@
 
 (reg-event-fx
  :work/create
- (fn [{:keys [db]} [evt-nm title owner visibility hits status]]
+ (fn [{:keys [db]} [evt-nm title owner cover]]
    {:http-xhrio {:method :post
                  :uri (endpoint "collections" "works" "records")
-                 :params {:title title :owner owner :visibility visibility :hits hits :status status}
+                 :params {:title title :owner owner :cover cover :visibility "private" :hits 0 :status "ongoing"}
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
@@ -85,7 +85,7 @@
 
   (>evt [:work/get "dscgb2ve6my390s"])
 
-  (>evt [:work/create "Black Reflections" "hz5p7g21fca6k2w" "public" "1" "ongoing"])
+  (>evt [:work/create "Let Heaven Fall" "hz5p7g21fca6k2w" ""])
 
   (<sub [:db])
 

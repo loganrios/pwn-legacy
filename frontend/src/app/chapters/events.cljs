@@ -47,10 +47,10 @@
 
 (reg-event-fx
  :chapter/create
- (fn [{:keys [db]} [evt-nm title content authors hits]]
+ (fn [{:keys [db]} [evt-nm title content authors]]
    {:http-xhrio {:method :post
                  :uri (endpoint "collections" "chapters" "records")
-                 :params {:title title :content content :authors authors :hits hits}
+                 :params {:title title :content content :authors authors :hits 0}
                  :format (json-request-format)
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
@@ -79,7 +79,7 @@
 
   (>evt [:chapter/get "q52qprlb2geq5co"])
 
-  (>evt [:chapter/create "The End" "Hello the end of the world, my name is cheese." ["hz5p7g21fca6k2w"] 1])
+  (>evt [:chapter/create "The End" "Hello the end of the world, my name is cheese." ["hz5p7g21fca6k2w"]])
 
   (>evt [:chapter/delete "f72goy1ol1uivuy"])
 
