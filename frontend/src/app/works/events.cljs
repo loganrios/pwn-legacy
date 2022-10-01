@@ -74,7 +74,6 @@
                  :response-format (json-response-format {:keywords? true})
                  :on-failure [:request-error evt-nm]}}))
 
-
 (comment
 
   (>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
@@ -90,7 +89,6 @@
   (<sub [:db])
 
   (>evt [:initialize-db])
-
 
 
  nil)

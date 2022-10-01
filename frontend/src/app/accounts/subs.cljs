@@ -1,7 +1,11 @@
 (ns app.accounts.subs
   (:require [re-frame.core :refer [reg-sub]]
             [app.db :refer [<sub]]
-            [app.misc :as misc]
+            [app.misc :refer [author-works
+                              works-list-item
+                              id->work
+                              author-works-by-status
+                              word-count]]
             [app.db :as db]))
 
 (reg-sub
@@ -36,23 +40,22 @@
            []
            (:users db))))
 
-(reg-sub :author/works-by-status
-         (fn [db [_ author-id status]]
-           (map #(misc/works-list-item %)
-                (map #(misc/id->work db %)
-                     (misc/author-works-by-status db author-id status)))))
-
-
+(reg-sub
+ :author/works-by-status
+ (fn [db [_ author-id status]]
+   (map #(works-list-item %)
+        (map #(id->work db %)
+             (author-works-by-status db author-id status)))))
 
 (comment
 
-  (misc/word-count app.db/dev-db :TheBeginning)
+  (word-count app.db/dev-db :TheBeginning)
 
   (filter #(= :Taz (:work/owner %)) (vals (:works app.db/dev-db)))
 
-  (misc/author-works app.db/dev-db :Taz)
+  (author-works app.db/dev-db :Taz)
 
-  (misc/id->work app.db/dev-db 2)
+  (id->work app.db/dev-db 2)
 
   (<sub [:author/works-by-status :Taz :completed])
 

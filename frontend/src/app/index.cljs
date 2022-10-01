@@ -8,7 +8,9 @@
            ["@mui/icons-material" :as mui-icons]
 
            [app.db]
-           [app.accounts.screens :as account-screens]))
+           [app.accounts.screens :as account-screens]
+           [app.works.screens :as work-screens]
+           [app.chapters.screens :as chapter-screens]))
 
 (defn rfy [screen]
   (r/reactify-component screen))
@@ -19,7 +21,8 @@
  ;; [:> (rfy account-screens/RegisterScreen)]
  ;; [:> (rfy account-screens/AuthorProfileScreen)]
  ;; [:> (rfy account-screens/AuthorDashboardScreen)]
-  [:> (rfy account-screens/WorkDashboardScreen)])
+ [:> (rfy work-screens/WorkDashboardScreen)])
+
 (defn start []
   (rdom/render [main] (js/document.getElementById "app")))
 

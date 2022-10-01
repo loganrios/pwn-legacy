@@ -50,5 +50,6 @@
 
   (<sub [:db])
 
+  (>evt [:initialize-db])
 
  nil)

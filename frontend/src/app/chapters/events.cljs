@@ -85,8 +85,6 @@
 
   (>evt [:chapter/update "q52qprlb2geq5co" :title "New End"])
 
-  (>evt [:work/update "w4nx6ag9xuvjccu" :title "I become Hell"])
-
   (<sub [:db])
 
   (>evt [:initialize-db])

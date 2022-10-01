@@ -5,7 +5,6 @@
              ["/SponsorList$default" :as SponsorList]
              ["/WorksList$default" :as Works]
              ["/DashboardWorksList$default" :as DashboardWorks]
-             ["/DashboardChapterList$default" :as DashboardChapterList]
              [app.db :refer [<sub
                              >evt]]
              [app.accounts.events]
@@ -36,8 +35,7 @@
               :link (<sub [:author/format-links user-id])
               :desc "Please enter the amount you are paying towards your sponsorship of this author."
               :onFollow #(>evt [:follow-all-author-works user-id author-id])
-              :onSubmit #(js/console.log "Thanks for falling for my scam!")
-              :onEditAvatar #(js/console.log "Why change a perfectly good picture?")}]
+              :onSubmit #(js/console.log "Thanks for falling for my scam!")}]
      [:> SponsorList {:sponsors (<sub [:author/sponsor-data user-id])}]
      [:> Works {:viewTab 0
                 :ongoing (<sub [:author/works-by-status user-id :ongoing])
@@ -52,27 +50,6 @@
                          :completed (<sub [:author/works-by-status user-id :completed])
                          :hiatus (<sub [:author/works-by-status user-id :hiatus])}]]))
 
-(defn WorkDashboardScreen []
-  (let [user-id :Taz
-        user (<sub [:user user-id])
-        author-id :Taz]
-    [:<>
-     [:> DashboardChapterList {:chapters [{:id 1
-                                           :title "Of Stocks and Demons"
-                                           :date "9/4/2022, 12:00 PM"
-                                           :words 472
-                                           :views 60
-                                           :comment "Taz"
-                                           :onEdit #(js/console.log "Edited")
-                                           :onDelete #(js/console.log "Deleted")}
-                                          {:id 2
-                                           :title "Of Stocks and Demons"
-                                           :date "9/4/2022, 12:00 PM"
-                                           :words 472
-                                           :views 60
-                                           :comment "Taz"
-                                           :onEdit #(js/console.log "Edited")
-                                           :onDelete #(js/console.log "Deleted")}]}]]))
 
 (comment
 

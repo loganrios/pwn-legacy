@@ -119,7 +119,6 @@ const AuthorBio = ({
   link,
   desc,
   onSubmit,
-  onEditAvatar,
 }) => {
   return (
     <div>
@@ -134,8 +133,8 @@ const AuthorBio = ({
             p: { xs: 0, sm: 2 },
             gridTemplateRows: "auto",
             gridTemplateAreas: {
-              xs: `"username username username username"
-                   "follow follow sponsor sponsor"
+              xs: `"username username follow sponsor"
+                   "username username follow sponsor"
                    "stats  stats  bio    bio"
                    "stats  stats  bio    bio"
                    "  .      .    links  links"`,

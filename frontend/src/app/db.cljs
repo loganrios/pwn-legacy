@@ -10,7 +10,8 @@
 (def dev-db {:user/email ""
              :user/id ""
              :token ""
-             :users {:Taz #:user{:username "Tazspeare"
+             :users {:Taz #:user{:id :Taz
+                                 :username "Tazspeare"
                                  :privilege :author
                                  :bio "My name is Taz Michael Mann, fear my name!"
                                  :image "https://avatarfiles.alphacoders.com/594/59437.jpg"
@@ -19,8 +20,7 @@
                                  :following #{:Leif :Mazzy}
                                  :sponsoring {:Underground-72 2000 :Devrey 15000}
                                  :reader-preferences {:adult-content false
-                                                      :track-progress true}
-                                 :id "test"}
+                                                      :track-progress true}}
                      :Leif #:user{:username "King-of-Basketball"
                                   :privilege :author
                                   :bio "Poetry is for nerdz"
@@ -40,7 +40,8 @@
                                                  :Taz 2}
                                     :reader-preferences {:adult-content false
                                                          :track-progress false}}}
-             :works {1 #:work{:title "World of Broken Dreams"
+             :works {1 #:work{:id 1
+                              :title "World of Broken Dreams"
                               :owner :Taz
                               :visibility :public
                               :status :completed
@@ -84,21 +85,24 @@
                                          5 :Queen}
                               :cover "https://www.royalroadcdn.com/public/covers-large/become-leviathan-61244.jpg?time=1656233092"
                               :hits 489}}
-             :chapters {:TheBeginning #:chapter{:title "The Beginning"
+             :chapters {:TheBeginning #:chapter{:id :TheBeginning
+                                                :title "The Beginning"
                                                 :content "This is a really long string of text."
                                                 :authors [:Taz]
                                                 :pre-content "Sup dogs."
                                                 :post-content "Double sup dogs."
                                                 :hits 10
                                                 :early-access false}
-                        :TheDayAfterTomorrow #:chapter{:title "The Day After Tomorrow"
+                        :TheDayAfterTomorrow #:chapter{:id :TheDayAfterTomorrow
+                                                       :title "The Day After Tomorrow"
                                                        :content "This is a string of text."
                                                        :authors [:Taz]
                                                        :pre-content "Heyo"
                                                        :post-content "I am the strongest worder."
                                                        :hits 12
                                                        :early-access false}
-                        :Aftermorrow #:chapter{:title "Aftermorrow"
+                        :Aftermorrow #:chapter{:id :Aftermorrow
+                                               :title "Aftermorrow"
                                                :content "This is a less long string of text."
                                                :authors [:Taz]
                                                :pre-content ""
