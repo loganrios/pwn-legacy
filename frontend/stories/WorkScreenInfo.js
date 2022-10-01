@@ -28,7 +28,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  pt: 2,
+
   px: 4,
   pb: 3,
 };
@@ -152,7 +152,7 @@ const WorkScreenInfo = ({
               Followers: {followers}
             </Typography>
             <Typography variant="body1" align="center">
-              Public Ratins: {publicRatings}
+              Public Ratings: {publicRatings}
             </Typography>
             <Typography variant="body1" align="center">
               Pages: {pages}
