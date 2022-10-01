@@ -30,29 +30,24 @@ Primary.args = {
   pages: 8845,
   genres: [
     {
-      value: "0",
       label: "Non-Fiction",
       onTagFilter: () => console.log("Filtering to show Non-Fiction Works"),
     },
     {
-      value: "1",
       label: "Fan-Fiction",
       onTagFilter: () => console.log("Filtering to show Fan-Fiction Works"),
     },
   ],
   tags: [
     {
-      value: "0",
       label: "Slice of Life",
       onTagFilter: () => console.log("Filtering to show Slice of Life Works"),
     },
     {
-      value: "1",
       label: "Thriller",
       onTagFilter: () => console.log("Filtering to show Thriller Works"),
     },
     {
-      value: "2",
       label: "Existential Crisis",
       onTagFilter: () =>
         console.log("Filtering to show Existential Crisis Works"),
@@ -60,12 +55,10 @@ Primary.args = {
   ],
   warnings: [
     {
-      value: "0",
       label: "Gore",
       onTagFilter: () => console.log("Filtering to show Gore Works"),
     },
     {
-      value: "1",
       label: "18+",
       onTagFilter: () => console.log("Filtering to show 18+ Works"),
     },

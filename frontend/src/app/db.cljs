@@ -25,7 +25,7 @@
                                   :privilege :author
                                   :bio "Poetry is for nerdz"
                                   :image ""
-                                  :following #{:Ash :Mazzy :Devrey}
+                                  :following #{:Ash :Mazzy :Devrey 1}
                                   :sponsoring {:Mazzy 100
                                                :Ash 50
                                                :Taz 1}
@@ -54,7 +54,9 @@
                                          2 :TheDayAfterTomorrow
                                          3 :Aftermorrow}
                               :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629"
-                              :hits 9}
+                              :hits 9
+                              :created "2022-01-01 01:00:00"
+                              :updated "2022-02-02 04:00:00"}
                      2 #:work{:title "Black Reflections"
                               :owner :Taz
                               :visibility :public
@@ -68,7 +70,9 @@
                                          2 :MartialArtistOrksinSpace
                                          3 :TillSheWasGone}
                               :cover "https://www.royalroadcdn.com/public/covers-large/world-of-broken-dreams-63504.jpg?time=1661125629"
-                              :hits 2}
+                              :hits 2
+                              :created "2022-01-02 02:00:00"
+                              :updated "2022-02-02 03:00:00"}
                      3 #:work{:title "Become Stock Leviathan"
                               :owner :Devrey
                               :visibility :public
@@ -84,7 +88,9 @@
                                          4 :CorporateZombiesAfantasticalmetaphorforexploitationandsocialdestruction
                                          5 :Queen}
                               :cover "https://www.royalroadcdn.com/public/covers-large/become-leviathan-61244.jpg?time=1656233092"
-                              :hits 489}}
+                              :hits 489
+                              :created "2022-01-03 03:00:00"
+                              :updated "2022-02-02 02:00:00"}}
              :chapters {:TheBeginning #:chapter{:id :TheBeginning
                                                 :title "The Beginning"
                                                 :content "This is a really long string of text."
@@ -92,7 +98,9 @@
                                                 :pre-content "Sup dogs."
                                                 :post-content "Double sup dogs."
                                                 :hits 10
-                                                :early-access false}
+                                                :early-access false
+                                                :created "2022-01-01 01:00:00"
+                                                :updated "2022-02-02 04:00:00"}
                         :TheDayAfterTomorrow #:chapter{:id :TheDayAfterTomorrow
                                                        :title "The Day After Tomorrow"
                                                        :content "This is a string of text."
@@ -100,7 +108,9 @@
                                                        :pre-content "Heyo"
                                                        :post-content "I am the strongest worder."
                                                        :hits 12
-                                                       :early-access false}
+                                                       :early-access false
+                                                       :created "2023-05-02 01:00:00"
+                                                       :updated "2023-03-04 03:00:00"}
                         :Aftermorrow #:chapter{:id :Aftermorrow
                                                :title "Aftermorrow"
                                                :content "This is a less long string of text."
@@ -108,7 +118,9 @@
                                                :pre-content ""
                                                :post-content ""
                                                :hits 3
-                                               :early-access false}}})
+                                               :early-access false
+                                               :created "2027-01-01 03:00:00"
+                                               :updated "2028-02-02 01:00:00"}}})
 
 (def prod-db {})
 

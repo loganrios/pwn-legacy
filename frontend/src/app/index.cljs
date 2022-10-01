@@ -21,7 +21,9 @@
  ;; [:> (rfy account-screens/RegisterScreen)]
  ;; [:> (rfy account-screens/AuthorProfileScreen)]
  ;; [:> (rfy account-screens/AuthorDashboardScreen)])
- [:> (rfy work-screens/WorkDashboardScreen)])
+ ;; [:> (rfy work-screens/WorkDashboardScreen)]
+ [:> (rfy work-screens/WorkScreen)])
+
 
 (defn start []
   (rdom/render [main] (js/document.getElementById "app")))

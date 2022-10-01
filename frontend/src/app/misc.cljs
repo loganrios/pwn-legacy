@@ -56,6 +56,9 @@
 (defn id->work [db id]
   (get (:works db) id))
 
+(defn workId->chapter-list [db work-id]
+  (let [chapters (vals (get-in db [:works work-id :work/chapters]))]
+    (map (fn [chapter] (get db :chapters chapter)) chapters)))
 
 (defn word-count [db chapter-id]
   (count (str/split (get-in db [:chapters chapter-id :chapter/content]) #"\s+")))
@@ -63,16 +66,17 @@
 (defn chapter-views [db chapter-id]
   (get-in db [:chapters chapter-id :chapter/hits]))
 
-(defn workId->chapter [db work-id]
-  (let [chapters (vals (get-in db [:works work-id :work/chapters]))]
-    (map (fn [chapter] (get db :chapters chapter)) chapters)))
-
 (defn dashboard-chapter-list-item [db chapter-data]
    {:id (:chapter/id chapter-data)
     :title (:chapter/title chapter-data)
-    :date 555
+    :date (:chapter/created chapter-data)
     :words (word-count db (:chapter/id chapter-data))
     :views (:chapter/hits chapter-data)
     :comment "Taz"
     :onEdit #(js/console.log "Edited")
     :onDelete #(js/console.log "Deleted")})
+
+(defn work-chapter-list-item [db chapter-data]
+   {:id (:chapter/id chapter-data)
+    :title (:chapter/title chapter-data)
+    :date (:chapter/created chapter-data)})
