@@ -7,6 +7,7 @@
                               >evt]]
               [app.works.events]
               [app.works.subs]
+              [app.misc :refer [id->username]]
               [reagent.core :as r]))
 
 (defn WorkDashboardScreen []
@@ -26,7 +27,7 @@
         work (<sub [:works work-id])]
     [:<>
      [:> WorkInfo {:workTitle (:work/title work)
-                   :author (:work/owner work)
+                   :author (<sub [:username (:work/owner work)])
                    :blurb (:work/blurb work)
                    :image (:work/cover work)
                    :avgPostTime "7 days"

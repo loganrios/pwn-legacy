@@ -13,7 +13,10 @@
  (fn [db [_ uuid]]
    (get-in db [:users uuid])))
 
-(<sub [:user :Taz])
+(reg-sub
+ :username
+   (fn [db [_ id]]
+     (get-in db [:users id :user/username])))
 
 (reg-sub
  :author/format-links
