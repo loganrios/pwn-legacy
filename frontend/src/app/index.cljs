@@ -20,7 +20,7 @@
  ;; [:> (rfy account-screens/LoginScreen)]
  ;; [:> (rfy account-screens/RegisterScreen)]
  ;; [:> (rfy account-screens/AuthorProfileScreen)]
- ;; [:> (rfy account-screens/AuthorDashboardScreen)]
+ ;; [:> (rfy account-screens/AuthorDashboardScreen)])
  [:> (rfy work-screens/WorkDashboardScreen)])
 
 (defn start []

@@ -6,8 +6,6 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material/styles";
-import EditIcon from "@mui/icons-material/Edit";
-import LaunchIcon from "@mui/icons-material/Launch";
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
@@ -90,7 +88,6 @@ const WorkDashboardInfo = ({
             <Button
               variant="contained"
               aria-label="follow"
-              startIcon={<EditIcon />}
               onClick={onEdit}
             >
               Edit
@@ -106,7 +103,6 @@ const WorkDashboardInfo = ({
             <Button
               variant="contained"
               aria-label="go to page"
-              startIcon={<LaunchIcon />}
               onClick={onGoToPage}
             >
               Go to page
