@@ -16,7 +16,7 @@ const columns = [
   { id: "date", label: "Posted", width: 150, align: "right" },
 ];
 
-const DashboardChapterList = ({ chapters }) => {
+const WorkChapterList = ({ chapters }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -71,4 +71,4 @@ const DashboardChapterList = ({ chapters }) => {
   );
 };
 
-export default DashboardChapterList;
+export default WorkChapterList;
