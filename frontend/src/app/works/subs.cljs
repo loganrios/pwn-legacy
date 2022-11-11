@@ -42,7 +42,6 @@
                       #(js/console.log "Filter to...")]]
      (map #(assoc {} :label %1 :onTagFilter %2) type tag-filters))))
 
-
 ;;FIXME tag-filters is hacked until nav is implemented
 (reg-sub
  :works/warnings

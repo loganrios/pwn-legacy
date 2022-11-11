@@ -7,7 +7,6 @@
                               >evt]]
               [app.works.events]
               [app.works.subs]
-              [app.misc :refer [id->username]]
               [reagent.core :as r]))
 
 (defn WorkDashboardScreen []
