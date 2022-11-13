@@ -7,13 +7,12 @@
             [day8.re-frame.http-fx]
             [ajax.core :refer [json-request-format
                                json-response-format]]
-            [clojure.string :as str]
 
             [app.misc :refer [endpoint]]))
 
 (reg-event-fx
  :auth/login
- (fn [{:keys [db]} [evt-nm email password]]
+ (fn [_ [evt-nm email password]]
    {:http-xhrio {:method :post
                  :uri (endpoint "users" "auth-via-email")
                  :params {:email email :password password}
@@ -44,7 +43,7 @@
 
   (>evt [:auth/login "dummyemail@realauthor.com" "password"])
 
-  (>evt [:auth/login "thisemail@email.comm" "passwordd"])
+  (>evt [:auth/login "tazemail@email.com" "passwordd"])
 
   (>evt [:auth/logout])
 

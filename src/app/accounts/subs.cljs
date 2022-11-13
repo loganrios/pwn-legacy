@@ -10,8 +10,8 @@
 
 (reg-sub
  :user
- (fn [db [_ uuid]]
-   (get-in db [:users uuid])))
+ (fn [db [_]]
+   (get-in db [:user/id])))
 
 (reg-sub
  :username

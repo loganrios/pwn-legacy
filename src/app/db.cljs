@@ -10,17 +10,19 @@
 (def dev-db {:user/email ""
              :user/id ""
              :token ""
-             :users {:Taz #:user{:id :Taz
-                                 :username "Tazspeare"
-                                 :privilege :author
-                                 :bio "My name is Taz Michael Mann, fear my name!"
-                                 :image "https://avatarfiles.alphacoders.com/594/59437.jpg"
-                                 :readingList "https://projectwebnovel.com/Taz/reading-list"
-                                 :links {"Discord" "https://discord.gg/fMQbrSSS"}
-                                 :following #{:Leif :Mazzy}
-                                 :sponsoring {:Underground-72 2000 :Devrey 15000}
-                                 :reader-preferences {:adult-content false
-                                                      :track-progress true}}
+             :active-page :home
+             :active-work 1
+             :users {"yn2qqkchit8bk78" #:user{:id :Taz
+                                              :username "Tazspeare"
+                                              :privilege :author
+                                              :bio "My name is Taz Michael Mann, fear my name!"
+                                              :image "https://avatarfiles.alphacoders.com/594/59437.jpg"
+                                              :readingList "https://projectwebnovel.com/Taz/reading-list"
+                                              :links {"Discord" "https://discord.gg/fMQbrSSS"}
+                                              :following #{:Leif :Mazzy}
+                                              :sponsoring {:Underground-72 2000 :Devrey 15000}
+                                              :reader-preferences {:adult-content false
+                                                                   :track-progress true}}
                      :Leif #:user{:username "King-of-Basketball"
                                   :privilege :author
                                   :bio "Poetry is for nerdz"
@@ -42,7 +44,7 @@
                                                          :track-progress false}}}
              :works {1 #:work{:id 1
                               :title "World of Broken Dreams"
-                              :owner :Taz
+                              :owner "yn2qqkchit8bk78"
                               :visibility :public
                               :status :completed
                               :contributors []
@@ -58,7 +60,7 @@
                               :created "2022-01-01 01:00:00"
                               :updated "2022-02-02 04:00:00"}
                      2 #:work{:title "Black Reflections"
-                              :owner :Taz
+                              :owner "yn2qqkchit8bk78"
                               :visibility :public
                               :status :ongoing
                               :contributors []

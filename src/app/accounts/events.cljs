@@ -30,7 +30,7 @@
 
 (reg-event-fx
  :user/create
- (fn [{:keys [db]} [evt-nm username email password passwordConfirm]]
+ (fn [_ [evt-nm username email password passwordConfirm]]
    {:http-xhrio {:method :post
                  :uri (endpoint "users")
                  :params {:email email
@@ -43,7 +43,7 @@
 
 (reg-event-fx
  :user/create-profile
- (fn [{:keys [db]} [evt-nm username {:keys [profile]}]]
+ (fn [_ [evt-nm username {:keys [profile]}]]
    {:http-xhrio {:method :patch
                  :uri (endpoint "collections" "profiles" "records" (:id profile))
                  :params {:username username :privilege "reader"}
@@ -52,7 +52,7 @@
                  :on-failure [:request-error evt-nm]}}))
 (reg-event-fx
  :profiles/get
- (fn [{:keys [db]} [evt-nm]]
+ (fn [_ [evt-nm]]
    {:http-xhrio {:method :get
                  :uri (endpoint "collections" "profiles" "records")
                  :format (json-request-format)
@@ -68,7 +68,7 @@
 
 (reg-event-fx
  :profile/get
- (fn [{:keys [db]} [evt-nm id]]
+ (fn [_ [evt-nm id]]
    {:http-xhrio {:method :get
                  :uri (endpoint "collections" "profiles" "records" id)
                  :format (json-request-format)
@@ -85,7 +85,7 @@
 
 (reg-event-fx
  :profile/update
- (fn [{:keys [db]} [evt-nm id field new-val]]
+ (fn [_ [evt-nm id field new-val]]
    {:http-xhrio {:method :patch
                  :uri (endpoint "collections" "profiles" "records" id)
                  :params {field new-val}
@@ -96,7 +96,7 @@
 ;;TODO this may not be necessary. Discuss with Logan
 (reg-event-fx
  :profile/delete
- (fn [{:keys [db]} [evt-nm id]]
+ (fn [_ [evt-nm id]]
    {:http-xhrio {:method :delete
                  :uri (endpoint "collections" "profiles" "records" id)
                  :format (json-request-format)
@@ -131,7 +131,7 @@
 
   (>evt [:profile/update "1nkqyfnr7dztkqc" :username "FakeUser" :privilege "reader"])
 
-  (>evt [:user/create "Fake User" "tested@email.com" "passwordd" "passwordd"])
+  (>evt [:user/create "Tazspeare" "Tazemail@email.com" "passwordd" "passwordd"])
 
   (>evt [:follow-all-author-works :Taz :Taz])
 

@@ -14,7 +14,7 @@
 
 (reg-event-fx
  :works/get
- (fn [{:keys [db]} [evt-nm]]
+ (fn [_ [evt-nm]]
    {:http-xhrio {:method :get
                  :uri (endpoint "collections" "works" "records")
                  :format (json-request-format)
@@ -30,7 +30,7 @@
 
 (reg-event-fx
  :work/get
- (fn [{:keys [db]} [evt-nm id]]
+ (fn [_ [evt-nm id]]
    {:http-xhrio {:method :get
                  :uri (endpoint "collections" "works" "records" id)
                  :format (json-request-format)
@@ -47,7 +47,7 @@
 
 (reg-event-fx
  :work/create
- (fn [{:keys [db]} [evt-nm title owner cover]]
+ (fn [_ [evt-nm title owner cover]]
    {:http-xhrio {:method :post
                  :uri (endpoint "collections" "works" "records")
                  :params {:title title :owner owner :cover cover :visibility "private" :hits 0 :status "ongoing"}
@@ -57,7 +57,7 @@
 
 (reg-event-fx
  :work/update
- (fn [{:keys [db]} [evt-nm id field new-val]]
+ (fn [_ [evt-nm id field new-val]]
    {:http-xhrio {:method :patch
                  :uri (endpoint "collections" "works" "records" id)
                  :params {field new-val}
@@ -67,7 +67,7 @@
 
 (reg-event-fx
  :work/delete
- (fn [{:keys [db]} [evt-nm id]]
+ (fn [_ [evt-nm id]]
    {:http-xhrio {:method :delete
                  :uri (endpoint "collections" "works" "records" id)
                  :format (json-request-format)
